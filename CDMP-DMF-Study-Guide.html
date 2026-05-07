@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CDMP DMF — 30-Day Study Guide</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;600&display=swap');
+
+  :root {
+    --bg: #0d1117;
+    --surface: #161b22;
+    --surface2: #1c2330;
+    --border: #30363d;
+    --text: #e6edf3;
+    --muted: #8b949e;
+    --accent: #58a6ff;
+    --green: #3fb950;
+    --red: #f85149;
+    --yellow: #d29922;
+    --ch1: #58a6ff;
+    --ch2: #3fb950;
+    --ch3: #f78166;
+    --ch4: #d2a8ff;
+    --ch5: #ffa657;
+    --ch6: #ff7b72;
+    --ch7: #79c0ff;
+    --ch8: #56d364;
+    --ch9: #e3b341;
+    --ch10: #bc8cff;
+    --ch11: #6cb6ff;
+    --ch12: #7ee787;
+    --ch13: #ffa198;
+    --ch14: #f0883e;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  /* HEADER */
+  .site-header {
+    background: linear-gradient(135deg, #0d1117 0%, #161b22 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 24px 32px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .site-header h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px;
+    color: var(--text);
+    white-space: nowrap;
+  }
+  .site-header h1 span { color: var(--accent); }
+  .header-controls {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .search-box {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 14px;
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    width: 260px;
+    outline: none;
+    transition: border-color .2s;
+  }
+  .search-box:focus { border-color: var(--accent); }
+  .search-box::placeholder { color: var(--muted); }
+  .btn {
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--surface2);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all .2s;
+    white-space: nowrap;
+  }
+  .btn:hover { background: var(--surface); border-color: var(--accent); color: var(--accent); }
+  .btn.active { background: var(--accent); color: #0d1117; border-color: var(--accent); }
+
+  /* PROGRESS BAR */
+  .progress-bar {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 10px 32px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .progress-label { font-size: 12px; color: var(--muted); white-space: nowrap; }
+  .progress-track {
+    flex: 1;
+    height: 4px;
+    background: var(--surface2);
+    border-radius: 99px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), var(--green));
+    border-radius: 99px;
+    transition: width .4s ease;
+  }
+  .progress-count { font-size: 12px; color: var(--accent); font-family: 'JetBrains Mono', monospace; white-space: nowrap; }
+
+  /* MAIN LAYOUT */
+  .main {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 32px 24px;
+  }
+
+  /* STATS BAR */
+  .stats-bar {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+  .stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    text-align: center;
+  }
+  .stat-card .stat-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--accent);
+    display: block;
+  }
+  .stat-card .stat-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .5px; }
+
+  /* CHAPTER CARD */
+  .chapter {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin-bottom: 16px;
+    overflow: hidden;
+    transition: border-color .2s;
+  }
+  .chapter:hover { border-color: var(--muted); }
+
+  .chapter-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 18px 22px;
+    cursor: pointer;
+    user-select: none;
+    transition: background .2s;
+  }
+  .chapter-header:hover { background: var(--surface2); }
+
+  .chapter-color-bar {
+    width: 4px;
+    height: 36px;
+    border-radius: 99px;
+    flex-shrink: 0;
+  }
+
+  .chapter-icon { font-size: 22px; flex-shrink: 0; }
+
+  .chapter-meta { flex: 1; }
+  .chapter-meta h2 {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .chapter-meta .chapter-sub {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  .chapter-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    background: var(--surface2);
+    color: var(--muted);
+    flex-shrink: 0;
+  }
+
+  .chapter-chevron {
+    font-size: 16px;
+    color: var(--muted);
+    transition: transform .3s ease;
+    flex-shrink: 0;
+  }
+  .chapter.open .chapter-chevron { transform: rotate(90deg); }
+
+  .chapter-body {
+    display: none;
+    padding: 0 22px 20px 22px;
+    border-top: 1px solid var(--border);
+  }
+  .chapter.open .chapter-body { display: block; }
+
+  /* QUESTION */
+  .question-item {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-top: 14px;
+    overflow: hidden;
+    transition: border-color .2s;
+  }
+  .question-item:hover { border-color: #484f58; }
+  .question-item.answered { border-color: var(--green); }
+  .question-item.answered .q-num { background: var(--green); color: #0d1117; }
+  .question-item.hidden-q { display: none; }
+
+  .q-head {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px 16px;
+  }
+  .q-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    background: var(--surface2);
+    color: var(--muted);
+    padding: 3px 8px;
+    border-radius: 6px;
+    flex-shrink: 0;
+    margin-top: 2px;
+    transition: all .2s;
+  }
+  .q-text {
+    font-size: 14px;
+    color: var(--text);
+    line-height: 1.6;
+    flex: 1;
+  }
+
+  .q-options {
+    padding: 0 16px 14px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .q-opt {
+    font-size: 13.5px;
+    color: var(--muted);
+    padding: 6px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all .15s;
+    border: 1px solid transparent;
+  }
+  .q-opt:hover { background: var(--surface); color: var(--text); border-color: var(--border); }
+  .q-opt.correct { background: rgba(63,185,80,.12); color: var(--green); border-color: rgba(63,185,80,.3); font-weight: 500; }
+  .q-opt.wrong { background: rgba(248,81,73,.1); color: var(--red); border-color: rgba(248,81,73,.25); }
+  .q-opt.revealed-correct { background: rgba(63,185,80,.12); color: var(--green); border-color: rgba(63,185,80,.3); font-weight: 500; }
+
+  .q-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 16px;
+    border-top: 1px solid var(--border);
+    background: var(--surface2);
+  }
+  .q-answer-label {
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .q-answer-label.shown { color: var(--green); }
+  .q-show-btn {
+    font-size: 12px;
+    padding: 4px 12px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: all .15s;
+  }
+  .q-show-btn:hover { color: var(--accent); border-color: var(--accent); }
+  .q-show-btn.active { color: var(--green); border-color: var(--green); }
+
+  .answer-revealed {
+    padding: 10px 16px 10px 40px;
+    border-top: 1px solid rgba(63,185,80,.2);
+    background: rgba(63,185,80,.05);
+    font-size: 13px;
+    color: var(--green);
+    display: none;
+  }
+  .answer-revealed.show { display: block; }
+  .answer-revealed strong { font-family: 'JetBrains Mono', monospace; }
+
+  /* SEARCH RESULTS */
+  .search-results-notice {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-bottom: 16px;
+    font-size: 13px;
+    color: var(--muted);
+    display: none;
+  }
+  .search-results-notice.show { display: block; }
+  .search-results-notice span { color: var(--accent); font-weight: 600; }
+
+  /* FOOTER */
+  .site-footer {
+    text-align: center;
+    padding: 32px;
+    font-size: 12px;
+    color: var(--muted);
+    border-top: 1px solid var(--border);
+    margin-top: 48px;
+  }
+
+  /* Responsive */
+  @media (max-width: 700px) {
+    .site-header { padding: 16px; flex-direction: column; align-items: flex-start; }
+    .search-box { width: 100%; }
+    .main { padding: 16px; }
+    .stats-bar { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  .all-expand-btns {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <h1>CDMP <span>DMF</span> Study Guide</h1>
+  <div class="header-controls">
+    <input class="search-box" type="text" id="searchBox" placeholder="🔍  Search questions…" oninput="handleSearch(this.value)">
+    <button class="btn" id="quizModeBtn" onclick="toggleQuizMode()">Quiz Mode: OFF</button>
+    <button class="btn" onclick="expandAll()">Expand All</button>
+    <button class="btn" onclick="collapseAll()">Collapse All</button>
+    <button class="btn" onclick="resetProgress()">Reset</button>
+  </div>
+</header>
+
+<div class="progress-bar">
+  <span class="progress-label">Overall Progress</span>
+  <div class="progress-track">
+    <div class="progress-fill" id="progressFill" style="width:0%"></div>
+  </div>
+  <span class="progress-count" id="progressCount">0 / 295</span>
+</div>
+
+<main class="main">
+  <div class="stats-bar" id="statsBar"></div>
+
+  <div class="search-results-notice" id="searchNotice">
+    Showing <span id="searchCount">0</span> results for "<span id="searchTerm"></span>"
+  </div>
+
+  <div id="chaptersContainer"></div>
+</main>
+
+<footer class="site-footer">
+  CDMP Data Management Fundamentals · 295 Questions across 14 DMBOK Knowledge Areas · Good luck in 30 days! 💪
+</footer>
+
+<script>
+// ─── DATA ───────────────────────────────────────────────────────────────────
+
+const chapters = [
+{
+  id:1, name:"Data Management Fundamentals", icon:"📚",
+  color:"var(--ch1)",
+  desc:"DMBOK foundations, definitions, frameworks & data value",
+  qs:[
+    {n:21,q:"Data Management pays more attention to the:",o:["A. The underlying problems in data than the root causes","B. Use of data rather than the provision of data","C. Provision of data rather than the usage of data","D. Visualisation of data rather than the narrative surrounding data","E. Data than information and knowledge"],a:"C"},
+    {n:79,q:"The 'Data Management Body of Knowledge' is produced by:",o:["A. The Data Management Authority","B. The Data Management Association","C. The Project Management Institute","D. The Data Practitioner Association","E. The Data Analysis Association"],a:"B"},
+    {n:80,q:"The DMBoK 'Environmental Factors hexagon' shows the relationship between:",o:["A. People, process and technology","B. People, software and tools","C. Business, application and technology architecture","D. Inputs, activities and deliverables","E. DMBoK knowledge areas"],a:"A"},
+    {n:81,q:"Data and information are:",o:["A. Representations of truth","B. Used only in the context of business intelligence","C. Intertwined and dependent on each other","D. Completely separate things","E. Pillars of the modern, organisational Parthenon"],a:"C"},
+    {n:83,q:"Which of the following is not a goal of data management?",o:["A. Ensuring the integrity of data assets","B. Ensuring staff are effectively trained on business operational procedures","C. Ensuring the quality of data and information","D. Ensuring data can be used to add value to the enterprise","E. Ensuring the privacy and confidentiality of data and information"],a:"B"},
+    {n:84,q:"Which of the following is NOT an approach to data valuation?",o:["A. Cost of obtaining and storing data","B. Enterprise data modelling","C. What the data could be sold for","D. Expected revenue from innovative uses of data","E. Cost of replacing data if it were lost"],a:"B"},
+    {n:97,q:"Data Fabric is:",o:["A. A form of data lake that automates data acquisition and initial data quality processing","B. Just another data warehouse with no distinguishing features","C. A way of sewing together different data concepts into a single data warehouse","D. A superior star schema strategy","E. A metadata repository"],a:"A"},
+    {n:136,q:"How does the DMBOK refer to an organization that values data as an asset and manages data through all phases of its lifecycle?",o:["A. A Data-centric organization","B. A Data management organization","C. A Data driven organization","D. A Data support organization","E. A Data integration organization"],a:"A"},
+    {n:149,q:"Data management is the development, execution and supervision of plans, policies, programs and practices that deliver control, protect and enhance:",o:["A. The value of information assets","B. Enterprise management capabilities","C. The value of data and information assets","D. The value of data assets","E. Data and information assets"],a:"C"},
+    {n:150,q:"The DAMA Wheel contains:",o:["A. Knowledge areas","B. Data management deliverables","C. Data management processes","D. Data strategy initiatives","E. Maturity model dimensions"],a:"A"},
+    {n:155,q:"A document that describes how data will be made more accessible over 3-5 years is called:",o:["A. An analytics strategy","B. A data management strategy","C. A data collection standard","D. A data warehouse design","E. Data quality metrics"],a:"B"},
+    {n:169,q:"Knowledge area activities are classified into four categories. They are:",o:["A. Planning, Development, Control and Operations","B. Procurement, Development, Control and Operations","C. Procurement, Detailing, Control and Organizing","D. Planning, Detailing, Control and Organizing","E. Preparation, Detailing, Creating and Deployment"],a:"A"},
+    {n:188,q:"DMBoK Knowledge areas should be implemented:",o:["A. One at a time to ensure the purity of each solution","B. In a clockwise manner that starts with data quality","C. With at least 2 others to achieve breadth of business activity","D. With each other to achieve coordinated business outcomes","E. With data governance and data quality at the core"],a:"D"},
+    {n:189,q:"Information is created and used by:",o:["A. Computers","B. Technology","C. Applications","D. Processes","E. Users"],a:"E"},
+    {n:228,q:"What causes data redundancy or data ROT?",o:["A. Poor assimilation of collected data","B. Poor data management practices","C. Server and human error","D. Dataset inaccuracies developed over time","E. All of these"],a:"E"},
+    {n:256,q:"Typical types of assessments used to describe an organisation's state of information management capability, do not include:",o:["A. Capacity to Change","B. Collaborative Readiness","C. Data Management Maturity","D. Business Alignment","E. Security and Penetration Testing"],a:"E"},
+    {n:283,q:"Which of the following is NOT a goal of data management?",o:["A. Ensuring the privacy and confidentiality of stakeholder data","B. Ensuring the quality of data and information","C. Preventing unauthorized or inappropriate access, manipulation, or use of data and information","D. Ensuring data can be used effectively to add value to the enterprise","E. Ensuring staff are effectively trained on business operational procedures."],a:"E"},
+    {n:295,q:"Five ways to measure data value include:",o:["A. IT depreciation cost, market value, opportunity cost, buying and selling data","B. Staff promotion opportunities, IT operating cost, opportunity cost, and selling data","C. Staff training cost, staff IP value, opportunity cost, selling data and risk cost","D. Replacement cost, market value, identify opportunities, selling data and risk cost","E. IT system cost, book value, lost opportunities, giving away data and risk cost"],a:"D"},
+  ]
+},
+
+{
+  id:2, name:"Data Governance", icon:"🏛️",
+  color:"var(--ch2)",
+  desc:"DG programs, strategies, roles, councils, stewardship & policy",
+  qs:[
+    {n:3,q:"What area do you not consider when developing a 'data governance operating model'?",o:["A. The availability of industry data models","B. The business model – decentralized versus centralized","C. The value of data to the organisation","D. Cultural factors - such as acceptance of discipline and adaptability to change","E. Impact of regulation"],a:"A"},
+    {n:4,q:"The purpose of data governance is to ensure that:",o:["A. Data can be reported on by the business line","B. Data is backed up every night","C. Data will be understood by all stakeholders","D. Data is available for other systems to use","E. Data is managed properly, according to policies and best practices"],a:"E"},
+    {n:5,q:"A common driver for data governance is:",o:["A. Irreconcilable figures in reports","B. Regulatory compliance","C. The appointment of a CDO","D. Internal audits","E. Outsourcing"],a:"B"},
+    {n:6,q:"Adoption of a Data Governance program is most likely to succeed:",o:["A. When dictated by senior executives","B. When the entire enterprise is partaking at once","C. In 1 or 2 months with a large consulting team","D. When the CDO is a charismatic leader","E. With an incremental rollout strategy"],a:"E"},
+    {n:32,q:"In order to gain endorsement to extend the use of reference and master data across the enterprise, a key supporting DMBOK knowledge area is:",o:["A. Data Architecture","B. Data Governance","C. Data Storage and Operations","D. Data Security","E. Document and Content Management"],a:"B"},
+    {n:53,q:"Data Stewards are most likely to be responsible for:",o:["A. Data Governance and Data Quality","B. Content and Document Management","C. Data Integration and Interoperability","D. Data Modelling and Data Security","E. Data Storage and Operations"],a:"A"},
+    {n:54,q:"A 'Data Governance Strategy' usually includes the following deliverables:",o:["A. A Charter, a Security Strategy, a Solution Roadmap, and a User Experience Plan","B. A Charter, a Data Architecture, a Program Data Model, and a Plan for Operational Success","C. A Charter, an Operating Framework, an Implementation Roadmap, and a Plan for Operational Success","D. A Statement of Intent, a Decision Framework, an Implementation Roadmap, and a Governance Toolkit","E. A Program Plan, a Resource Plan, an Implementation Plan, and a Test Plan"],a:"C"},
+    {n:55,q:"Which of the following is the biggest challenge to establishing effective Data Governance?",o:["A. Procuring large enough office space","B. Negotiating with the other C-suite holders","C. The amount of metadata to be loaded into a repository","D. The quantity of stakeholder change management required","E. The number and complexity of policies and procedures"],a:"D"},
+    {n:56,q:"The advantage of a decentralized data governance model over a centralized model is:",o:["A. An increased level of ownership from local decision making groups","B. The cheaper execution of data governance operations","C. The easier implementation of industry data models","D. Having a common approach to resolving data governance issues","E. The common metadata repository configurations"],a:"A"},
+    {n:114,q:"One of a business data steward's key responsibilities is to:",o:["A. Manage data storage and operations","B. Manage business process implementation","C. Manage the calendar of the business data owner","D. Manage business metadata","E. Manage the availability of the business intelligence solution"],a:"D"},
+    {n:116,q:"Data governance represents:",o:["A. A federated government style of data management","B. An inherent separation of duty between oversight and execution","C. An initiative that addresses the financial accuracy of the balance sheet","D. A joint effort in defining the data quality rules and profiling the data","E. An organisation structure with a number of key roles"],a:"D"},
+    {n:117,q:"What are the three qualities of an effective Data Governance function?",o:["A. Sustainable, realistic, embedded","B. Embedded, systematic, sustainable","C. Measured, objective, embedded","D. Optimism, objective, sustainable","E. Sustainable, embedded, measured"],a:"E"},
+    {n:118,q:"What is a steward?",o:["A. A person whose job it is to manage the property of another person","B. A stakeholder","C. An employer","D. A person responsible to follow trends","E. A sponsor"],a:"A"},
+    {n:151,q:"A document that stipulates the responsibilities and acceptable use of data to be exchanged is a:",o:["A. Project charter","B. Data sharing agreement","C. Interface contract","D. Data model","E. Data quality assessment"],a:"B"},
+    {n:165,q:"Which of these are principles that can help set a strong foundation for Data Governance:",o:["A. Principle-based","B. Multi-layered","C. Business-driven","D. Shared responsibility","E. All of these"],a:"E"},
+    {n:170,q:"According to the DMBoK, a business person who is accountable for decisions about data within their domain is called:",o:["A. A Data Owner","B. An Enterprise Data Steward","C. A Business Data Steward","D. A Data Custodian","E. A Business Data Steward"],a:"C"},
+    {n:171,q:"The Data Governance Steering Committee is best described as:",o:["A. The primary and highest authority responsible for the oversight and support of data governance activities","B. The local or divisional council, working under auspices of the CDO","C. The representatives of data use on project steering committees","D. The community of interest, focused on specific subject areas or projects","E. A burden to the agile delivery in a modern enterprise"],a:"A"},
+    {n:181,q:"Which of the following is a directive that codifies principles and management intent into fundamental rules governing the creation, acquisition, integrity, security, quality, and use of data and information?",o:["A. Data Management","B. Data policies","C. Data audit principle","D. Data asset valuation","E. Data Governance"],a:"B"},
+    {n:233,q:"What is the most common label to describe responsibility for ensuring effective control and use of data assets?",o:["A. Business Drivership","B. Data Operations","C. Data Custodianship","D. Data Stewardship","E. Data Quality Custodianship"],a:"D"},
+    {n:234,q:"What is the purpose of Data Governance?",o:["A. Encompass the entire lifecycle of a data asset","B. To ensure that data is managed properly, according to policies and best practices","C. Ensure an organization gets value out of its data","D. Establish processes and functions through which data can be enabled for use and also maintained.","E. Ensure that financial performance of the company is improved"],a:"B"},
+    {n:241,q:"Business continuity is an aspect of Governance. What should a business continuity plan include?",o:["A. Outlines how a business will continue operating during an unplanned disruption in service","B. Provides explanation to customers during an unplanned disruption in service","C. Defines unplanned disruptions that may occur","D. Precedes business rules","E. Explains to external stakeholders why performance expectations are not being met"],a:"A"},
+    {n:247,q:"What position is responsible for the quality and use of their organization's data assets?",o:["A. Chief Information Officer","B. Data Scientist","C. Data Modeler","D. Data Architect","E. Data Steward"],a:"E"},
+    {n:248,q:"What is the definition of a business rule in the context of Data Governance?",o:["A. Outlines the steps to take when a business disruption occurs","B. Clarifies an organization's goal","C. Clarifies an organization's objectives","D. Specifies constraints on what can and cannot be done in the organization","E. Contains an organization's contingency plans"],a:"D"},
+    {n:249,q:"Information governance and data governance should be:",o:["A. Managed as separate functions","B. Managed as integrated functions, with information governance reporting to data governance","C. Managed by the Chief Information Officer","D. Managed as a single function","E. Managed as integrated functions, with data governance reporting to information governance"],a:"E"},
+    {n:257,q:"What is Data Stewardship?",o:["A. Refers to the role responsible for creating policies, procedures, and rules that govern data in the organization","B. A collection of tools that ensure an organization's privacy policy","C. A prioritized program of work with scoped boundaries","D. A position accountable and responsible for data and processes that ensure effective control and use of data assets","E. The creation of compelling vision for Data Management across the enterprise"],a:"D"},
+    {n:258,q:"What position should be responsible for leading the Data Governance Council (DGC)?",o:["A. Chief Data Architect or Chief Data Modeler","B. Chief Data Steward or Chief Data Officer","C. Chief Information Officer or Chief Technology Officer","D. DGC Chair should rotate among executive positions","E. Any executive can chair the DGC"],a:"B"},
+    {n:273,q:"How is Data Governance defined?",o:["A. Exercise of the authority and control over the management of data assets.","B. Planning, implementation, and control activities for lifecycle management of data and information found in any form or medium","C. Evaluation of the current state of critical data management activities in order to plan for improvement","D. Set of interdependent functions, each with its own goals, activities, and responsibilities.","E. Data governance assists in representing information consistently and protecting sensitive information"],a:"A"},
+    {n:286,q:"The failure to gain acceptance of a business glossary may be due to ineffective:",o:["A. Data Governance","B. Metadata Management","C. Content and Document Management","D. Business Architecture","E. Data Security"],a:"A"},
+  ]
+},
+
+{
+  id:3, name:"Data Architecture", icon:"🏗️",
+  color:"var(--ch3)",
+  desc:"Enterprise data architecture, artifacts, frameworks, roadmaps & domains",
+  qs:[
+    {n:11,q:"Which of the following activities is NOT a way that enterprise data architecture influences the scope boundaries of projects?",o:["A. Ensuring enterprise business processes are effectively documented","B. Performing design reviews to ensure support of long-term organisational strategy","C. Providing enterprise data requirement for projects","D. Enforcing data architecture standards","E. Ensuring sufficient data replication controls are in place"],a:"A"},
+    {n:12,q:"Data flows can be represented by:",o:["A. Two dimensional matrices showing the relationships between data users and business processes","B. Two dimensional matrices showing the relationships between data entities and business processes","C. Two dimensional matrices showing the relationships between data facts and data dimensions","D. Two dimensional matrices showing the relationships between data entities and data quality","E. Two dimensional matrices showing the relationships between data users and data consumers"],a:"B"},
+    {n:13,q:"The key architecture domains include:",o:["A. Business, strategy, application and technology architectures","B. Zachmann, TOGAF, Cobit, and Heath architectures","C. Business, data, infrastructure and technology architectures","D. Business, data, application and technology architectures","E. Process, database, software and technology architectures"],a:"D"},
+    {n:22,q:"In the common enterprise architecture model coded BIAT, the 'I' stands for:",o:["A. Interoperability","B. Instance","C. Identification","D. Integration","E. Information"],a:"E"},
+    {n:29,q:"Over a decade an organisation has rationalised implementation of party concepts from 48 systems to 3. This is a result of good:",o:["A. Data quality and data governance","B. Data operations and system rationalization","C. Data architecture and data warehousing","D. Data architecture and data governance","E. System rationalization and metadata management"],a:"D"},
+    {n:30,q:"A data architect is best deployed:",o:["A. To build the database solution","B. To manage the delivery of all the data aspects of a program","C. After the project completes to identify weaknesses and lessons learned","D. During the early stages of a project to define and shape a strategic solution","E. By project managers to sign off all data deliverables"],a:"D"},
+    {n:57,q:"The ability of an organisation to respond to changes in product configuration is easier due to generalisation in the:",o:["A. Data warehousing","B. Technical architecture","C. Data quality","D. Business architecture","E. Data architecture"],a:"E"},
+    {n:58,q:"A data architecture team is best described as:",o:["A. The authors of reference data","B. A group of strong database administrators","C. A strategic planning and compliance team","D. A well-managed project of architectural development","E. An operational data provisioning group"],a:"C"},
+    {n:120,q:"Enterprise data architects in an application migration project are primarily concerned with:",o:["A. Data mapping specifications","B. Changes to business processes","C. Mapping of data to business process","D. Mapping outliers","E. Resolving data complexity"],a:"A"},
+    {n:127,q:"An enterprise data architect works with enterprise architecture to:",o:["A. Maximize the value of data to the business","B. Measure use of data","C. Re-focus failing data analytic projects","D. Re-focus failing data analytic projects","E. Model the data to the overall architecture"],a:"A"},
+    {n:128,q:"What is the final step in the development of business-data-driven roadmap?",o:["A. Resequencing of some of the business capabilities to resolve data dependencies","B. Describe the Data Value Chain that supports the Business Capabilities","C. Finalize the Data flow between business capabilities","D. Establish the sequence of projects that will be used to establish the data value chain","E. Resolve Data Dependency challenges"],a:"A"},
+    {n:129,q:"Enterprise Data architects effect change through:",o:["A. Reference to program timelines","B. Solution architectures","C. Data governance stewardship","D. Responsibility","E. An adopted data architecture roadmap"],a:"E"},
+    {n:134,q:"Which Data Architecture artefact contains the names of key business entities, their relationships, critical guiding business rules and critical attributes?",o:["A. Enterprise Data Model","B. Enterprise Semantic Model","C. Enterprise Business Glossary","D. Enterprise Data Standards","E. Enterprise Data Flows"],a:"A"},
+    {n:135,q:"What types of data models can be used to jumpstart the process of developing an Enterprise Data Model?",o:["A. Copy from the data models from a packaged software","B. Models developed based on Modelling Patterns","C. Combining the existing data models","D. Industry Standard Models","E. Reverse engineering the physical database"],a:"D"},
+    {n:137,q:"Multiple data warehouses, lakes, and swamps are an indicator that the organization values:",o:["A. Data quality over master data management","B. Data modelling over data architecture","C. Security over enterprise data management","D. Processes over a single golden record","E. Technology acquisition over a single point of truth"],a:"E"},
+    {n:159,q:"Which Data Architecture Artifact can be used to harmonize business operations & solutions?",o:["A. Enterprise Logical Data Model","B. Enterprise Conceptual Data Model","C. Subject Area Model","D. Enterprise Physical Data Model","E. Enterprise Data Model"],a:"E"},
+    {n:160,q:"The TOGAF framework does NOT include a(n):",o:["A. Maturity model","B. Methods","C. Business focus","D. Metamodel","E. Enterprise continuum approach"],a:"A"},
+    {n:168,q:"Which Data Architecture Artifact describes how data transforms into business assets?",o:["A. Data Flows","B. Data Value Chain","C. Master Data Models","D. Implementation Roadmap","E. Business Value Chains"],a:"B"},
+    {n:176,q:"Provide a project related activity that a data architect performs when understanding business requirements:",o:["A. Design data models that enforce business rules from a data lifecycle perspective","B. Identify data related pain points","C. Reuse Common Data Structures that support the business requirements","D. Before purchasing an application, they can reverse engineering the model to validate business requirements","E. Ensure that the scope is aligned with the enterprise data model"],a:"B"},
+    {n:177,q:"The conceptual Enterprise Data Model may be built using a top-down or bottom up approach. What is the difference?",o:["A. Top-down starts with industry standard models. Bottom-up requires a subject area discriminator.","B. Top-down uses data flows as a starting point, while bottom-up starts with data lineage.","C. Bottom-up starts with subject areas and populating them with models. Top-down is based on existing data models.","D. Top-down starts with subject areas and populating them with models. Bottom-up is based on existing data models.","E. Top-down and bottom-up are two sides of the same coin."],a:"D"},
+    {n:178,q:"How does the enterprise data model guide the project data specifications?",o:["A. By verifying business requirements","B. By ensuring that Project data specifications deal with future requirements","C. By ensuring that the projects implement solutions across the entire data life cycle","D. By providing clear & consistent definitions across the organization","E. By providing the Application data models with structural blueprints"],a:"D"},
+    {n:184,q:"When projects re-use data, the enterprise data architects provide oversight for:",o:["A. Adherence to all data standards","B. Integration from original sources","C. Data use for stated purposes","D. Adherence to all project approved end uses","E. Data profiling and remediation"],a:"A"},
+    {n:185,q:"The data architect needs to propagate data across the landscape in real time. This requires the leveraging of the following DMBoK knowledge areas:",o:["A. Data architecture, data governance and metadata management","B. Data architecture, data quality and content, and document management","C. Data architecture, data modelling and design, and data security","D. Data architecture, metadata management and data security","E. Data architecture, integration and interoperability, data storage and operations"],a:"E"},
+    {n:193,q:"What differentiates enterprise data architecture from project data architecture?",o:["A. Ability to enforce rules","B. A need to control for data quality","C. A good understanding of company policies","D. A collaborative approach to solutions","E. A mandate to look holistically at the enterprise data"],a:"E"},
+    {n:194,q:"What business function is best aligned to deliver oversight to data architecture?",o:["A. Business Integration","B. Data Governance","C. Chief Technology Office","D. Business Innovation","E. Enterprise Architecture"],a:"E"},
+    {n:195,q:"Data architecture compliance rate measures:",o:["A. How closely projects are meeting their timelines","B. How fast the database can retrieve data","C. How closely projects comply with established data architectures","D. How closely projects comply with the development lifecycle","E. How complete an attribute list is in an entity"],a:"C"},
+    {n:214,q:"A diagram containing the existing data stores and data interfaces between them is called a:",o:["A. Data landscape","B. Metadata repository","C. Data flow diagram","D. Unsecure data network","E. Dimensional model"],a:"A"},
+    {n:231,q:"The necessity of representing organisational data at different levels of abstraction is:",o:["A. Because most database administrators need specifications to build databases with appropriate response times","B. Because most architects want to deploy a complete suite of drawings for project deliverables","C. Because most organisations need to accommodate to the different points of view of information architecture and data architecture","D. Because most Chief Data Officers do not have the technical background to be held accountable for complex data diagrams","E. Because most organisations have more data than individual people can comprehend, understand and make decisions about"],a:"C"},
+    {n:232,q:"How is the Agile development method dependent on the data-architect?",o:["A. Short sprints can be reviewed after completion by reversing engineering the data","B. Compliance with well-defined standards & guidelines","C. Development Sprints will be pre-emptied by data model delivery package","D. Object-oriented designs can be validated by the enterprise data models"],a:"C"},
+    {n:238,q:"Which artifact is the highest level of abstraction in the Enterprise Data Model?",o:["A. Data Ownership Model","B. Subject Area model","C. Conceptual Model","D. Top-level Process Model","E. Systems Portfolio Model"],a:"C"},
+    {n:252,q:"What Data Architecture artifacts provide the Data Modelling Project boundaries?",o:["A. Enterprise Data Model","B. Data Mapping Specifications","C. Business Data Model","D. Application Model"],a:"C"},
+    {n:253,q:"Which has the highest value return for an enterprise data architect?",o:["A. Influencing the solution options for projects during initiation","B. Assisting selection of a package solution","C. Reviewing operational business continuity plans","D. Assisting a project team design a solution","E. Guiding the testing and data migration"],a:"A"},
+    {n:255,q:"When measuring the value of data architecture one should be most concerned about:",o:["A. Cost savings","B. Improved coding efficiency","C. Added business value","D. Number of Projects reviewed","E. Project speed"],a:"C"},
+    {n:265,q:"The repeated implementation of different CRM technologies with different data structures is mostly a failure of:",o:["A. Data security","B. Data architecture","C. Data modelling","D. Data warehousing","E. Data quality"],a:"B"},
+    {n:269,q:"An annual enterprise data architecture report is comprised of a summary of enterprise data model updates, project compliance and variances, and a measurement of:",o:["A. Database backup compliance","B. Data security compliance","C. Reference and master data compliance","D. Data landscape compliance","E. Data warehouse compliance"],a:"D"},
+    {n:272,q:"Creating an Enterprise Data Model (EDM) is a function of modelling, but is also relevant in implementing Data Architecture, because the EDM:",o:["A. Is an important step establish the Data Modelling standards best suited to the style of Data Architecture for the organisation","B. Can be considered as a foundational blueprint for data for the organisation, and Data Architecture blueprints are one of the key deliverables for Data Architecture","C. Ties together various aspects of Data Architecture, including the establishment of a Data Architecture methodology specific to the organisation","D. Is a key deliverable for Data Architecture","E. Will force the necessary collaboration between the various teams involved to make sure Data Architecture provides clear value to the Business"],a:"B"},
+    {n:278,q:"The Data Architecture workstream on results produces:",o:["A. Data architecture artifacts within an overall roadmap","B. Selection of the data architecture framework","C. Interaction with the enterprise data architecture group","D. Assignment of accountability and responsibilities","E. A change in behaviour"],a:"A"},
+  ]
+},
+
+{
+  id:4, name:"Data Modeling & Design", icon:"🗂️",
+  color:"var(--ch4)",
+  desc:"Conceptual, logical & physical models, normalization, keys, cardinality & notation",
+  qs:[
+    {n:14,q:"An enterprise data model would be composed of:",o:["A. Conceptual models, logical models and physical models","B. Conceptual models, star schema models and interface models","C. Conceptual models, subject area models and logical models","D. Logical models, physical models and infrastructure models","E. Enterprise models, data models and compositional models"],a:"C"},
+    {n:15,q:"A relationship that allows an address to be used by multiple people, and each person can have multiple addresses, can be resolved:",o:["A. With an additional relationship describing the address usage","B. By changing the primary keys on Person and Address to ensure referential integrity","C. With an associative entity called Person Address Usage and two, 'one to many' relationships","D. With a partnership entity called Person Address Usage and two, 'one to many' relationships","E. By changing the role names of the foreign keys on Person and Address to ensure referential integrity"],a:"C"},
+    {n:16,q:"In a data model, domains can be used for:",o:["A. Reducing the amount of coding required in the database","B. Public viewing of the data model","C. Consolidation of data into subject areas","D. Consistency and standardization of data values","E. Separating concepts into business ideas"],a:"D"},
+    {n:35,q:"First Normal Form:",o:["A. Ensures that each attribute has a balanced proportion of neutrons and protons","B. Ensures that each entity has no hidden primary keys","C. Ensures that the Party Role structure is correctly represented","D. Ensures that each attribute is atomic without repeating groups","E. Ensures that each attribute has a definition that makes sense"],a:"D"},
+    {n:36,q:"In data modelling practice, entities are linked by:",o:["A. Triggers","B. Cardinality","C. Processes","D. Indexes","E. Relationships"],a:"E"},
+    {n:37,q:"Data Models are critical to effective management of data, because they:",o:["A. Control the list of values in dropdown lists in applications","B. Strategically prepare organisations to quickly evolve their products and services","C. Define the rules and approval mechanisms to make changes to the data structures","D. Determine which style of data schema is used in a data warehouse","E. Provide a common vocabulary around data"],a:"E"},
+    {n:38,q:"The goal of data modelling, documenting different perspectives and aligning them in a single data model, achieves:",o:["A. Applications that are deployed by simple version upgrades","B. Application projects that are less complicated due to a variant data model","C. Application performance that is guaranteed","D. Applications that meet the custom needs of specific business areas","E. Applications that more closely align to current and future business requirements"],a:"E"},
+    {n:39,q:"Significant operational issues have been caused by the implementation of a data model that represents a Customer Agreement as a ternary relationship between the Enterprise, a Customer, and their Contact Person. Which of the following describes the likely operational issue?",o:["A. Every time the customer changes addresses the address for the contact person must change as well","B. In the event of a merger between enterprises, the contact person addresses need to be updated","C. Every time the contact person changes, the customer agreement needs to be re-established","D. Response time for retrieving the Customer Agreement degrades rapidly due to the lack of indexing","E. Every time the Customer Agreement was renewed, a new Contact Person record was required"],a:"C"},
+    {n:40,q:"A project scope includes the collection, exchange and reporting of data from multiple systems. Conceptual, logical and physical data models are maintained. How many models of each type can be expected?",o:["A. More logical data models than physical data models, and more logical data models than conceptual data models","B. The same number of each of the model types","C. More conceptual data models than logical data models, and more logical data models than physical data models","D. Only 1 conceptual data model, 1 logical data model and 1 physical data model","E. More physical data models than logical data models, and more logical data models than conceptual data models"],a:"E"},
+    {n:109,q:"What is a super key?",o:["A. A numeric, often system generated key uniquely identify an entity instance.","B. An inverted architecture key, frequently used in high speed data retrieval systems","C. Any set of attributes without duplicates that uniquely identify an entity instance.","D. Any set of attributes that uniquely identify an entity instance.","E. Any set of attributes where each component is a shortened identifier to provide meaning to the reader of a key"],a:"D"},
+    {n:110,q:"In Data Modelling, the generalization of the concept of person and organisation into a party enables:",o:["A. Them to act in roles in agreements, shared address usages and common interaction processes","B. Faster implementation into packages that use the same vocabulary","C. The implementation of relationships between persons and organisations","D. Single person organisations to be managed consistently","E. Greater security as users are unaware if this party is a person or an organisation"],a:"A"},
+    {n:132,q:"A goal of data modelling is to confirm and document understanding of different perspectives. This frequently leads to:",o:["A. Applications that are deployed by simple version upgrades","B. Applications where the performance is able to meet Service Level Agreements","C. Applications that more closely align to current and future business requirements","D. Applications that meet the custom needs of specific business areas and conform to regulatory requirements.","E. Application projects that are less complicated due to disparate data models"],a:"C"},
+    {n:133,q:"What are the types of models that are modelled in data models?",o:["A. Resource Information","B. Business Event Information","C. Category information","D. Detail Transaction Information","E. All of these"],a:"E"},
+    {n:156,q:"During the initial scoping of a project, a data model can be used to:",o:["A. Determine the security requirements for accessing the data","B. Determine the impact of business processes and customer lifecycles","C. Identify detailed impact on all the tables in a database that must be changed","D. Provide a clear definition of affected and non-affected data entities","E. Plan the structure of the metadata repository"],a:"D"},
+    {n:157,q:"Project costs will increase faster by adding to the data model than adding to the process model because:",o:["A. Each additional data item adds complexity to the data warehouse","B. Each additional data item adds a number of processes to fully manage it","C. Each additional data item increases the complexity of data migration","D. Each additional data item drives an increase in storage space","E. Each additional data item drives an increase in security risk of the data"],a:"B"},
+    {n:174,q:"Data modelling tools and model repositories are necessary for:",o:["A. Enabling data governance","B. Visualizing and communicating database designs","C. Designing and visualizing linkages between metadata, reference data and transactional data repositories","D. Designing and visualizing organizational data artifacts","E. Managing the enterprise data model in all levels"],a:"E"},
+    {n:175,q:"A minimal super key is:",o:["A. Also known as a candidate key, it is a superkey without duplicated attributes. I.e. any set of attributes without duplicates that uniquely identify an entity instance.","B. Any set of attributes where each attribute that makes up the key is a foreign key in its own right.","C. An artificial key, made up of several meaningful components to help the reader understand the nature of the entity from the key alone.","D. A synonym for a surrogate key.","E. A type of advanced index key structure, in the same family as Hash, Heap, B-Tree and Inverted."],a:"A"},
+    {n:203,q:"A project scope requires the collection, exchange, and reporting of data from multiple in-house custom systems. Documents gathered include business concepts, existing database schemas, XSD's, and reporting layouts. How many models of each layer of abstraction can be expected?",o:["A. More XSD's than reporting layouts.","B. More conceptual data models than physical data models.","C. Only 1 conceptual data model, 1 logical data model and 1 physical data model","D. The same number of each of the model types.","E. More physical data models than logical data models, and more logical data models than conceptual data models."],a:"E"},
+    {n:204,q:"The purpose for adding redundancy to a data model (denormalisation) is to:",o:["A. Make it easier for developers to join tables","B. Fully utilize all the indexes","C. Avoid the loss of data by storing key values more than once","D. Ensure surrogate keys are retaining their unique values in all satellite tables","E. Improve aggregate database performance across read requests"],a:"E"},
+    {n:237,q:"During planning stage of a data model which of the following is not a valid scheme?",o:["A. NoSQL","B. Fact-based","C. Dimensional","D. Denormalised","E. Relational"],a:"A"},
+    {n:261,q:"According to the DMBoK, which of these is not a commonly used entity category:",o:["A. Who","B. Measurement","C. If","D. What","E. Why"],a:"C"},
+    {n:266,q:"A data model:",o:["A. Records recent user access to enable the assessment of security anomalies","B. Documents how data is passed between systems","C. Governs the implementation of the 'order to pay' business process lifecycle","D. Must exist in a data modelling tool","E. Documents a concise definition of data structures and relationships"],a:"E"},
+    {n:288,q:"In data modelling, it is important to know if time is being modelled because:",o:["A. We need to be able to distinguish rules at a point in time from rules over time","B. There should be a 'time' entity on the model if time has been modelled","C. Models are not complete until they consider rules over time","D. Business days are different to calendar days in most organisations","E. The next phase will be faster if time is already modelled"],a:"A"},
+    {n:292,q:"The implementation of a 'Super Type - Sub Type' structure can use the following 2 options:",o:["A. Super-Subtype Split and Super-Subtype Merge","B. Super-Subtype Merge and Super-Subtype Split","C. Supertype Rollover and Subtype Rollunder","D. Subtype Absorption and Supertype Partition","E. Supertype Absorption and Subtype Partition"],a:"A"},
+  ]
+},
+
+{
+  id:5, name:"Data Storage & Operations", icon:"🗄️",
+  color:"var(--ch5)",
+  desc:"Databases, backup, recovery, performance, archiving & DBA responsibilities",
+  qs:[
+    {n:1,q:"The best way to validate that a database backup is working, is to:",o:["A. Periodically recover from the backup file","B. Check the backup logs every day","C. Appoint a special DBA in charge of backups","D. Check the size of the backup file","E. Check for the automatic email notification of backup success"],a:"A"},
+    {n:2,q:"When reviewing data access plans, sequential searching is slowing the database. One way to fix this is:",o:["A. Reducing the number of database users","B. Creating new indexes","C. Converting it to an in-memory database","D. Moving the database to the cloud","E. Adding more memory"],a:"B"},
+    {n:43,q:"Common data loss scenarios, that a DBA plans for, are unlikely to include:",o:["A. Customers losing their user guide","B. Loss of database server","C. Corruption of the physical database","D. Loss of transaction logs","E. Loss of one or more disk storage devices"],a:"A"},
+    {n:44,q:"Database monitoring tools measure key database metrics, such as:",o:["A. Capacity, availability, cache performance, user statistics","B. Capacity, availability, backup instances, data quality","C. Create, read, normalization, user access","D. Create, read, update, delete","E. Capacity, design, normalization, user access"],a:"A"},
+    {n:45,q:"The goals of data storage and operations are:",o:["A. Managing accessibility, ensuring authorized access and managing performance","B. Managing availability, ensuring consistency and managing glossaries","C. Managing user experience, ensuring consistency and managing glossaries","D. Managing user experience, ensuring data access and managing data lifecycles","E. Managing availability, ensuring integrity and managing performance"],a:"E"},
+    {n:46,q:"Database performance depends upon two independent facets. These are:",o:["A. Availability and speed","B. Choice of DBMS and programming language","C. Hardware and network","D. Distance to data center and network bandwidth","E. Number of users and number of tables"],a:"A"},
+    {n:65,q:"Data that is used infrequently or not at all may be moved to an alternative data store. This is called:",o:["A. Replication","B. Authentication","C. Analysis","D. Auditing","E. Archiving"],a:"E"},
+    {n:130,q:"Data replication is useful as it provides:",o:["A. An alternative to backups","B. Opportunities to secure sensitive data","C. Enables different table structures to be built","D. Insights into customer retention","E. The ability to spread the workload across multiple databases"],a:"E"},
+    {n:131,q:"Regulatory data retention requirements drive the need to keep data for set periods for:",o:["A. Submitting datasets to regulators","B. Legal obligations","C. Customer analytics","D. Alternate backup sources","E. Historical reporting"],a:"B"},
+    {n:153,q:"A database whose index is updated with a crawler program is an example of:",o:["A. Database technology called ACID","B. Database technology called BASE","C. Database technology called SQL","D. Database technology called TRIP","E. Database technology called NoSQL"],a:"E"},
+    {n:154,q:"When recovering from multiple system failures, what is the biggest difficulty faced by a DBA?",o:["A. Organising for the tapes to be delivered to the main data center","B. Determining what version of the DBMS to recover - considering incremental patches","C. Reseting active directory to reapply the security policies","D. Determining what point to recover to using backups taken at different points in time","E. Determining where the corrupt pages exist in the database file system"],a:"D"},
+    {n:187,q:"A search engine database is populated by a web crawler or spider software that usually processes as:",o:["A. Atomic, consistent, isolated, durable (ACID)","B. Continually repeating, always performing (CRAP)","C. Basically available, soft state, eventually consistent (BASE)","D. Fundamentally available, consistently true (FACT)","E. Linearly independent, near exact (LINE)"],a:"C"},
+    {n:208,q:"Is it better to specify data recoverability requirements or data backup requirements? Why?",o:["A. Data recoverability requirements. Data backup is one technique to meet data recoverability requirements","B. Data recoverability requirements. Data backup is not related to business recovery at all","C. Data backup requirements. This will ensure that the data is backed up on a cycle required by the business","D. Data backup requirements. This will enable the IT team to be confident of the business requirement","E. Neither. Data recovery and backup is often avoided altogether using a cloud solution"],a:"A"},
+    {n:209,q:"Production DBA's would not normally take responsibility for:",o:["A. Implementing backup and recovery mechanisms","B. Implementing mechanisms for clustering and failover of the database","C. The fitness of purpose for data in the database","D. Ensuring performance and reliability of the database","E. Executing other database maintenance activities, such as archiving"],a:"C"},
+    {n:210,q:"The acronym ACID stands for:",o:["A. Available, corrupt, isolation and durable","B. Atomicity, consistency, isolation and durability","C. Atomicity, completeness, independence and durability","D. Actual, created, identified and deleted","E. Available, completeness, isolation and dangerous"],a:"B"},
+    {n:220,q:"Periodic archiving of transaction data from a production CRM system is critical for:",o:["A. Training junior DBAs","B. The maintenance of database performance","C. Enabling the distribution of transaction data across the enterprise","D. Providing alternate sources for reporting systems","E. Managing deleted customer records"],a:"B"},
+    {n:235,q:"A schema is:",o:["A. A logical data model","B. A business conceptual data model","C. A database object that increases performance of an application","D. A subset of the overall database for security and/or operational purposes","E. A plot to achieve better data governance"],a:"D"},
+    {n:244,q:"A database that is growing at 100% per annum compound will be:",o:["A. 3 times its original size at the end of year 2","B. Half its original size at the end of year 2","C. 2 times its original size at the end of year 5","D. 4 times its original size at the end of year 2","E. 6 times its original size at the end of year"],a:"D"},
+  ]
+},
+
+{
+  id:6, name:"Data Security", icon:"🔐",
+  color:"var(--ch6)",
+  desc:"Security models, classification, access control, encryption, privacy & compliance",
+  qs:[
+    {n:27,q:"IoT devices have introduced new vulnerabilities by:",o:["A. Using standard network connections without the sophisticated security provided by more powerful network devices","B. Using standard network connections and overwhelming the network with the volume of data","C. Using non-standard network connections which means that less attackers understand the technology","D. Using non-standard network connections which are not managed to the same level of quality","E. Using global network connection"],a:"A"},
+    {n:28,q:"A DMZ is bordered by 2 firewalls. These are between the DMZ and the:",o:["A. Internet, for added security","B. Internet and intranet","C. Internet and internal systems","D. Korean peninsula","E. Internet and extranet"],a:"C"},
+    {n:42,q:"Integrating data security with document and content management knowledge areas, guides the implementation of:",o:["A. Fitness for purpose metrics for unstructured data","B. Straight-through processing for NoSQL queries","C. Appropriate access and authorization to structured data","D. Appropriate access and authorization to unstructured data","E. Appropriate privacy controls on data marts"],a:"D"},
+    {n:47,q:"Achieving security risk reduction in an organisation begins with developing what?",o:["A. A classification model, classifying each data concept and locating the physical data","B. A metadata model, locating the data and moving it into the metadata repository","C. A security model, classifying each organisational role and putting the physical data behind a firewall","D. A change management model, prioritising security changes and then updating the active directory","E. An enterprise data model, rolling out data flow diagrams and embedding security into the database"],a:"A"},
+    {n:48,q:"A weak point in an organisation's defences is a:",o:["A. Anti-virus software","B. Vulnerability","C. Security model problem","D. Firewall","E. Penetration"],a:"B"},
+    {n:49,q:"Primary drivers of data security activities are:",o:["A. Risk control and content management","B. Risk reduction and business growth","C. Glossary management and risk reduction","D. Data protection and flexible database design","E. Data quality and intellectual property protection"],a:"B"},
+    {n:50,q:"The percentage of enterprise computers having the most recent security patch installed is a metric of which knowledge area?",o:["A. Data Security","B. Data Storage and Operations","C. Metadata Management","D. Data Quality","E. Data Warehousing and Business Intelligence"],a:"A"},
+    {n:51,q:"A security mechanism that searches for customer bank account details in outgoing emails is achieving the goal of:",o:["A. Ensuring stakeholder requirements for openness and transparency are met","B. Ensuring stakeholder requirements for service design and experience are met","C. Ensuring stakeholder requirements for response time and availability levels are met","D. Ensuring stakeholder requirements for concise definitions and usage are met","E. Ensuring stakeholder requirements for confidentiality and privacy are met"],a:"E"},
+    {n:52,q:"Is the risk of a data breach higher in documents on a network drive or in an enterprise resource system (ERP)?",o:["A. Data needs to be emailed to be breached effectively","B. The probability is exactly the same","C. Data cannot be breached from either platform due to the superior security in modern computer networks","D. On a network drive","E. In an enterprise resource system (ERP)"],a:"D"},
+    {n:64,q:"An application uses a single service account for all database access. One of the risks of this approach is:",o:["A. The ability to trace who made changes to the data","B. It constrains the application from running parallel processes","C. The data becomes out of order","D. The application freezes more often","E. The database runs out of threads"],a:"A"},
+    {n:70,q:"GDPR and PIPEDA are examples of:",o:["A. Data protection regulations","B. Primary information parsing algorithms","C. Global data modelling standards","D. Data program rules","E. Content management systems"],a:"A"},
+    {n:140,q:"Data masking is a practice where only correct submitted data:",o:["A. Can be used in further analysis","B. Will appear in security reports","C. Will unlock further processes","D. Will be recorded in the database","E. Will unlock the value of the masked data"],a:"C"},
+    {n:143,q:"The process of translating plain text into complex codes to hide privileged information is:",o:["A. Encapsulation","B. Encryption","C. Exaggeration","D. Elimination","E. Enhancement"],a:"B"},
+    {n:144,q:"HTTPS:// indicates that the website is:",o:["A. Equipped with a content management system","B. Equipped with 3rd party cookies","C. Equipped with a foreign language translator","D. Equipped with a security layer","E. Equipped with an underlying database"],a:"D"},
+    {n:145,q:"Obfuscation of data is to:",o:["A. Use synonyms for the same term","B. Put it in different databases","C. Collect data from obscure sources","D. Make it obscure or unclear","E. Make the result clear"],a:"D"},
+    {n:163,q:"The requirement to enter a username, a password and then a code sent to an authentication app is called:",o:["A. 3-factor authentication","B. Proactive authentication","C. 2-factor authentication","D. Biometric authentication","E. Mobile authentication"],a:"C"},
+    {n:166,q:"Consent is given when an organisation has:",o:["A. Reviewed its current policies with its data governance committee","B. Published specific information about its policies and practices","C. Obtained permission from an individual for the collection, use or disclosure of personal information","D. Captured and stored data in its database","E. Been hacked and information about people has become public"],a:"C"},
+    {n:167,q:"A staff member has been detected inappropriately accessing client records from usage logs. The security mechanism being used is an:",o:["A. Access","B. Authorisation","C. Audit","D. Authentication","E. Entitlement"],a:"C"},
+    {n:183,q:"Compound authorization groups provide a means to:",o:["A. Distract the data security officer","B. Precisely configure an individual's access to a system","C. Effectively prepare for data security audits","D. Obfuscate a user's actual access to a system","E. Encrypt sensitive transmissions of data"],a:"B"},
+    {n:196,q:"De-identifying sensitive data in a data warehouse enables:",o:["A. A focus on re-identifying records with 3rd party datasets","B. Increased utilization without compromising data privacy","C. A reduced complexity in the data models","D. A bypass in the need to assess data quality","E. Certainty of complete datasets for interrogation"],a:"B"},
+    {n:211,q:"Information security begins by classifying an organisation's data in order to:",o:["A. Identify which departments need more data","B. Identify which data needs protection","C. Identify which systems need better reporting","D. Identify which subject area the data belongs in","E. Identify the metadata classification values"],a:"B"},
+    {n:212,q:"In data security, which of the following is not one of the four A's:",o:["A. Agile","B. Authentication","C. Authorization","D. Access","E. Audit"],a:"A"},
+    {n:216,q:"A weakness or defect in a system that allows it to be successfully attacked and compromised is a:",o:["A. Risk","B. Chasm","C. Threat","D. Feature","E. Vulnerability"],a:"E"},
+    {n:217,q:"The standard for a strong password is set by the:",o:["A. Data security standard","B. Identity management standard","C. Data modelling standard","D. Data naming standard","E. Data access standard"],a:"B"},
+    {n:226,q:"A denial of service attack is typically accomplished by:",o:["A. Flooding the target machine with superfluous requests","B. Interrupting the mains electricity supply","C. A stop-work action by the workforce","D. Corrupting the user name and passwords","E. Emailing virus laden attachments"],a:"A"},
+    {n:254,q:"The stakeholder requirements for privacy and confidentiality are goals found in:",o:["A. Data architecture","B. Data quality","C. Data security","D. Document and content management","E. Metadata management"],a:"C"},
+    {n:289,q:"The disclosure of sensitive addresses may occur through:",o:["A. Cloud-based databases","B. Inappropriate use of photocopier toner","C. Stored procedures being called directly","D. Software ignoring privacy tags on the data.","E. Ineffective implementation of data architecture"],a:"D"},
+  ]
+},
+
+{
+  id:7, name:"Data Integration & Interoperability", icon:"🔄",
+  color:"var(--ch7)",
+  desc:"ETL, integration patterns, SOA, latency, data flows & transformation",
+  qs:[
+    {n:31,q:"When trying to integrate a large number of systems, the integration complexities can be reduced by:",o:["A. The use of a common data model","B. Using data quality measures and targets","C. Clear business specification and priorities","D. The use of SQL","E. Tackling the largest systems first"],a:"A"},
+    {n:33,q:"The creation of overly complex enterprise integration over time is often a symptom of:",o:["A. Multiple data owners","B. Multiple integration technologies","C. Multiple data warehouses","D. Multiple metadata tags","E. Multiple application coding languages"],a:"B"},
+    {n:34,q:"A 'Content Distribution Network' supporting a multi-national website is likely to use:",o:["A. A database backup and restore solution","B. An extract transform and load solution","C. A records disposal solution","D. A replication solution","E. An archiving solution"],a:"D"},
+    {n:66,q:"Integrating two data stores using batch or real-time synchronous approaches results in a difference in:",o:["A. Source of truth","B. Data quality","C. Timestamping","D. Lethargy","E. Latency"],a:"E"},
+    {n:68,q:"Mapping requirements and rules for moving data from source to target enables:",o:["A. Extract","B. Backups","C. Analysis","D. Load","E. Transformation"],a:"E"},
+    {n:76,q:"Achieving near-real-time data replication, using a source accumulation technique, triggers on:",o:["A. Request from a target system to pull data","B. Reaching a threshold or frequency schedule","C. Daily batch loads","D. Posting of messages on the enterprise bus","E. Arrival of streaming data"],a:"B"},
+    {n:82,q:"If data is a fact, why isn't it always easy to integrate?",o:["A. The data elements are the same","B. The information context comes in different security formats","C. Data is an interpretation of the object it represents and there are different interpretations","D. The data is in different languages","E. The facts come in different data types"],a:"C"},
+    {n:85,q:"Implementing a services-oriented architecture will often use:",o:["A. ETL servers","B. A data modeling tool","C. An enterprise services bus","D. Data visualization tools","E. A data lake"],a:"C"},
+    {n:86,q:"The ability of a photo app to share its images with various social media applications, is an example of:",o:["A. Metadata","B. Interoperability","C. Replication","D. Integration","E. Rendering"],a:"B"},
+    {n:111,q:"A point to point interface architecture will, in general, have more or less interface formats than a service-oriented architecture?",o:["A. A few more","B. Many less","C. About the same","D. A few less","E. Many more"],a:"E"},
+    {n:152,q:"Examples of transformation include:",o:["A. Format changes, structure changes, semantic conversion, de-duplication and re ordering","B. Organisation changes, location changes, business strategy conversion, downsizing and outsourcing","C. Application changes, infrastructure changes, software conversion, de-duplication and re-ordering","D. Format changes, structure changes, replication conversion, re-duplication and data ordering","E. Data modelling changes, structure changes, metric conversion, de-duplication and reordering"],a:"A"},
+    {n:172,q:"In data integration, the goal of data discovery is to:",o:["A. Assign data glossary terms and data formats","B. Identify key users and perform high level assessment of data quality","C. Identify potential sources and perform high-level assessment of data quality","D. Identify potential sources and assure data recovery processes are compliant","E. Assign data glossary terms and canonical models"],a:"C"},
+    {n:173,q:"Three common interaction models for data integration are:",o:["A. Point to point, hub and spoke, publish and subscribe","B. Straight copy, curved copy, roundabout copy","C. Plane to point, harvest and seed, publish and subscribe","D. Point to point, wheel and spoke, public and share","E. Record and pass, copy and send, read and write"],a:"A"},
+    {n:218,q:"The acronym ETL most commonly stands for:",o:["A. Extend Trim Load","B. Efficient Trace Logging","C. Extract Transform Load","D. Extract Transpose Leverage","E. Export Transform Log"],a:"C"},
+    {n:219,q:"The need to manage data movement efficiently is a primary driver for:",o:["A. Data Integration and Interoperability","B. Data Security","C. Document and Content Management","D. Data Warehousing and Business Intelligence","E. Data Storage and Operations"],a:"A"},
+    {n:221,q:"One of the difficulties when integrating multiple source systems is:",o:["A. Modifying the source systems to align to the enterprise data model","B. Completing the data architecture on time for the first release","C. Having a data quality rule applicable to all source systems","D. Determining valid links or equivalences between data elements","E. Maintaining documentation describing the data warehouse operation"],a:"D"},
+    {n:225,q:"The purpose and rationale for data integration should be defined by:",o:["A. Reporting requirements","B. The developers","C. Industry standards","D. Interoperability requirements","E. The business"],a:"E"},
+    {n:236,q:"What is the purpose of ISO 8000?",o:["A. Create, collect, store, maintain, transfer, process, and present metadata","B. Promote timely and cost-effective data integration","C. Enable the exchange of complex information in an application-neutral form","D. Report on potential data security risk"],a:"C"},
+    {n:242,q:"Considerations for whether to integrate two data stores should include all except the:",o:["A. Ability to govern the data across both systems","B. Capability of the systems to support the data natively","C. Complexity of data operations","D. Privacy and access consideration for the data","E. Maintaining of master data trust across the two data stores"],a:"C"},
+    {n:246,q:"If two data stores are able to be inconsistent during normal operations, then the integration approach is:",o:["A. Faulty","B. Uncontrolled","C. Streaming","D. Asynchronous","E. Synchronous"],a:"D"},
+  ]
+},
+
+{
+  id:8, name:"Document & Content Management", icon:"📄",
+  color:"var(--ch8)",
+  desc:"ECM, taxonomies, records, lifecycle, document control & unstructured data",
+  qs:[
+    {n:7,q:"In 2009, ARMA International published GARP for managing records and information. GARP stands for:",o:["A. Generally Accepted Recordkeeping Principles","B. Generally Available Recordkeeping Practices","C. Gregarious Archive of Recordkeeping Processes","D. Global Accredited Recordkeeping Principles","E. G20 Approved Recordkeeping Principles"],a:"A"},
+    {n:8,q:"'Planning, implementation and control activities for lifecycle management of data and information, found in any form or medium', pertains to which knowledge area?",o:["A. Data Warehousing and Business Intelligence","B. Data Integration and Interoperability","C. Metadata Management","D. Document and Content Management","E. Data Storage and Operations"],a:"D"},
+    {n:9,q:"Which of the following is a reason why organisations do not dispose of non-value-adding information?",o:["A. The organisation's data quality benchmark diminishes","B. Data modelling the content is hard to reproduce","C. The information is never out of date","D. Storage is cheap and easily expanded","E. The metadata repository cannot be updated"],a:"D"},
+    {n:10,q:"An enterprise content management system (ECM) stores the following:",o:["A. Kanban boards","B. Backups of the enterprise's data warehouse","C. Code and test scripts for enterprise development environments","D. Documents and images, but not multi-media","E. Information to be displayed on websites and contained in documents"],a:"E"},
+    {n:25,q:"The search function associated with a document management store is failing to return known artefacts. This is due to a failure of:",o:["A. Data privacy and confidentiality procedures","B. Maintaining public access to all documents in the document management store","C. Business intelligence implementation","D. Maintaining appropriate metadata on each document","E. Effective data quality metrics"],a:"D"},
+    {n:41,q:"A workforce is locked out of a building due to a threat to personnel. The Business Continuity plan (BCP) is stored in the Document Management System (DMS). Luckily:",o:["A. The security policy includes such a scenario","B. The workforce are expendable","C. The document is printed and stored off site","D. The metadata repository holds the BCP","E. The data warehouse catalog is fully operational"],a:"C"},
+    {n:87,q:"Users continue to use a shared drive instead of a new document management system. This may be due to:",o:["A. The document management system is too expensive","B. A failure to backup the shared drive","C. Onerous classification requirements when adding documents","D. Concern about the ability to version documents","E. Concurrent updates to the document are handled better by the shared drive"],a:"C"},
+    {n:88,q:"An enterprise's organisation chart has multiple levels, each with a single reporting line. This is an example of a:",o:["A. Ecological taxonomy","B. Flat taxonomy","C. Hybrid taxonomy","D. Compound taxonomy","E. Hierarchical taxonomy"],a:"E"},
+    {n:101,q:"The addition of workflow to a content management system will:",o:["A. Enforce the controlled review and approval of database design","B. Implement a data warehouse landing zone","C. Enable the controlled review and approval of documents","D. Restructure an enterprise glossary","E. Allow the approval of system access requests"],a:"C"},
+    {n:146,q:"A goal of 'Document and Content Management' is to ensure effective and efficient retrieval and use of:",o:["A. Data and information in unstructured formats","B. Information, but not data in unstructured formats","C. Data and information in structured formats","D. Data and information in relational formats","E. Data, but not information in unstructured formats"],a:"A"},
+    {n:147,q:"Which of the following is not a step in the 'document and content management lifecycle'?",o:["A. Manage versions and control","B. Create a content strategy","C. Audit documents and records","D. Manage retention and disposal","E. Capture records and content"],a:"B"},
+    {n:148,q:"A taxonomy is an umbrella term for:",o:["A. The study of metadata trails in an organization","B. A government revenue raising technique","C. All events within an organization's operations","D. Any classification or controlled vocabulary","E. A list of customers and their preferences"],a:"D"},
+    {n:186,q:"Evidence management requires document control that includes:",o:["A. The ability to store and replicate a source document","B. The ability to maintain the source of sensitive data","C. The ability to prove the source and integrity of a document","D. The ability to store and recover critical data","E. The ability to make any of the documents available"],a:"C"},
+    {n:239,q:"Which statement best describes the relationship between documents and records?",o:["A. Records are a sub-set of documents","B. Documents and records are not related","C. Documents are written and records are audio","D. Documents are a sub-set of records","E. Documents and records are the same thing"],a:"A"},
+    {n:240,q:"An umbrella term for any classification or controlled vocabulary is:",o:["A. Taxonomy","B. English","C. Metadata","D. Dictionary","E. Data model"],a:"A"},
+    {n:271,q:"'Open by default' document control will assist data sharing by:",o:["A. Setting the security to shared unless overwritten","B. Allocating more metadata to each document","C. Automatically opening the document when it is selected on the desktop","D. Keeping the documents open on the desktop ready for use","E. Automatically moving the data to the warehouse where everybody can access it"],a:"A"},
+  ]
+},
+
+{
+  id:9, name:"Reference & Master Data", icon:"🎯",
+  color:"var(--ch9)",
+  desc:"MDM, reference data, golden records, system of record vs reference & data stores",
+  qs:[
+    {n:17,q:"Data that is required across business processes, areas and systems is called:",o:["A. Event Data","B. A Data Mart","C. Static Data","D. Reference and Master Data","E. Important Data"],a:"D"},
+    {n:18,q:"The difference between a System of Record and a System of Reference is:",o:["A. They are the same thing","B. A system of record is a trusted way to access the data; a system of reference is the original source of the data","C. A system of record is the source of master data; a system of reference is the source of reference data","D. A system of record is the original source of the data; the system of reference is a trusted way to access the data","E. A system of reference is the source of transaction data; the system of record is the source of master data"],a:"D"},
+    {n:19,q:"A goal of reference and master data management is for data to ensure shared data is:",o:["A. Secure, auditable, complete and relevant","B. Secure, auditable, publicly available and free","C. Continuous, consistent, current and private","D. Complete, consistent, current and authoritative","E. Complete, consistent, content and relevant"],a:"D"},
+    {n:20,q:"An authoritative system where data is created/captured, and/or maintained through a defined set of rules and expectations is called:",o:["A. A System of Referential Integrity","B. A System of Retirement","C. A System of Reference","D. A System of Systems","E. A System of Record"],a:"E"},
+    {n:23,q:"One of the ongoing issues in maintaining ALL the customer data in a single master data management data store is that:",o:["A. The need for differing customer security levels across the enterprise will be entirely avoided","B. There will be continuous changes to the solution as it is sensitive to any change in any other customer system","C. Data warehousing will find it difficult to pick a system of reference or record for loading of data","D. The project will be very expensive","E. There will be isolated reference data left behind, making it difficult to manage"],a:"B"},
+    {n:24,q:"By comparing the system of record and systems of reference to each other, it is possible to:",o:["A. Validate the accuracy of the master data","B. Update the core reference values","C. Construct time variant sequences","D. Validate the completeness of the master data","E. Validate the consistency of the master data"],a:"E"},
+    {n:61,q:"In a data warehouse, where the classification lists for organisation type are inconsistent in different source systems, there is an indication that there is a lack of focus on:",o:["A. Master Data","B. Reference data","C. Data Storage","D. Data Modelling","E. Metadata Management"],a:"B"},
+    {n:63,q:"A database uses foreign keys from code tables for column values. This is a way of implementing:",o:["A. Temporal data","B. Event data","C. Star schema data","D. Master data","E. Reference data"],a:"E"},
+    {n:138,q:"All the systems in the enterprise, apart from a website, are showing updated pricing information. This may be due to:",o:["A. The pricing information is not updated in the reference data repository","B. The slowly changing dimension has both form and to dates","C. The website software not integrating with the reference data repository","D. The website software is not using standard XML schemas","E. The reference data strategy has not been approved by the executive"],a:"C"},
+    {n:141,q:"The management of a standard list of values, but failing to apply the classifications to actual data is:",o:["A. Good metadata data management, but poor data security management","B. Good metadata data management, but poor reference data management","C. Good reference data management, but poor metadata management","D. Good data modelling, but poor data architecture","E. Good operations management, but poor data security management"],a:"B"},
+    {n:158,q:"A business case for adding a new master data management solution is dependent on achieving greater value from:",o:["A. Centralised coordination of shared data vs the data management and integration cost of running another copies of the data.","B. Avoiding reference data management","C. Decentralising shared data as it is closer to where the business needs it","D. Mining golden records","E. Decommissioning all the other systems that manage this data"],a:"A"},
+    {n:161,q:"Reference data is used to:",o:["A. Describe backup strategies","B. Enforce enterprise security standards","C. Categorize or classify data","D. Remove duplicate customer records","E. Populate fact tables in a data mart"],a:"C"},
+    {n:162,q:"The implementation of a 'Master Data Repository', which is integrated across the enterprise, is an example of which integration approach?",o:["A. Replication","B. Change Data Capture","C. Publish and Subscribe","D. Point to Point","E. Hub and Spoke"],a:"E"},
+    {n:179,q:"The loading of country codes into a CRM is a classic:",o:["A. Reference data integration","B. Master data integration","C. Transaction data integration","D. Analytics data integration","E. Fact data integration"],a:"A"},
+    {n:180,q:"Initiatives focused on building a 'single view of customer' mainly rely on which DMBOK knowledge area?",o:["A. Data Security","B. Data Storage and Operations","C. Reference and Master Data","D. Metadata Management","E. Data Architecture"],a:"C"},
+    {n:192,q:"The main difference between a System of Record and a System of Reference is:",o:["A. A system of record is the source of master data; a system of reference is the source of reference data","B. The data does not originate in the system of record","C. The data does not originate in the system of reference","D. They are the same thing","E. A system of reference is the source of transaction data; the system of record is the source of master data"],a:"C"},
+    {n:223,q:"When assessing tools to implement master data management solutions, functionality must include:",o:["A. Document and content management","B. Auto-normalization features","C. Advanced analytics capabilities","D. Backup and recovery utilities","E. Sophisticated integration capability"],a:"E"},
+    {n:243,q:"Misclassification of transactions through integration is often caused by inconsistent:",o:["A. Data quality","B. Master data","C. Content management","D. Business intelligence","E. Reference data"],a:"E"},
+    {n:260,q:"Reference data is often a list of code values with their full names. One example is:",o:["A. State or province associated with the related country","B. Country codes associated with the country names","C. Master data values encoded into reference values","D. Encrypted code values with the unencrypted data value","E. Person age associated with accessibility requirements"],a:"B"},
+    {n:279,q:"Master data is data about:",o:["A. Authority to grant access to data across an organisation","B. Business entities, e.g. products, customers, assets and locations","C. Database structures and response time performance targets","D. Business transactions, e.g. financial transactions, enquiries and service call interactions","E. Data values stored and displayed in uppercase"],a:"B"},
+    {n:280,q:"The process of identifying how different records may relate to a single entity is called:",o:["A. Meshing","B. Mangling","C. Mirroring","D. Munging","E. Matching"],a:"E"},
+    {n:294,q:"The independent updating of data into a system of reference is likely to cause:",o:["A. Reference data inconsistencies","B. Master data inconsistencies","C. Deadlocks in the database","D. Duplicate data","E. Transaction data inconsistencies"],a:"A"},
+  ]
+},
+
+{
+  id:10, name:"Data Warehousing & Business Intelligence", icon:"📊",
+  color:"var(--ch10)",
+  desc:"DW design, Inmon, Kimball, data vault, data lakes, marts & BI reporting",
+  qs:[
+    {n:59,q:"A key feature of the Bill Inmon's approach to data warehousing is:",o:["A. A preference for supporting operational reporting","B. A normalized relational model to store and manage data","C. Its ability to operate on open source platforms","D. An exclusive focus on star schemas and cubes","E. A tight management of data dimensions"],a:"B"},
+    {n:60,q:"The key concepts of the data vault are:",o:["A. Hubs, links and satellites","B. Hubs, links and planets","C. Facts, links and satellites","D. Keys, locks and combinations","E. Facts, dimensions and time"],a:"A"},
+    {n:62,q:"The uncontrolled duplication of dimensions in a Kimball data warehouse is best controlled by:",o:["A. Establishing approval processes after user testing and before implementation","B. Replacing the data modelling team","C. Adapting the data architecture techniques supporting an Inmon style","D. Increased reference data management in source systems","E. Establishing approval processes during requirements and design"],a:"E"},
+    {n:77,q:"During the implementation of a data warehouse, a roadmap is used to:",o:["A. Articulate user requirements","B. Demonstrate progress towards the desired end state","C. Construct intricate security authorization","D. Demonstrate alignment to the project plan","E. Articulate data quality checkpoints"],a:"B"},
+    {n:78,q:"One of the key differences between operational systems and data warehouses is:",o:["A. Operational systems focus on business processes; data warehouses focus on business strategies","B. Operational systems focus on historical data; data warehouses contain current data","C. Operational systems are available 24x7; data warehouses are available during business hours","D. Operational systems focus on data quality; data warehouses focus on data security","E. Operational systems focus on current data; data warehouses contain historical data"],a:"E"},
+    {n:122,q:"In its broadest context, the data warehouse includes:",o:["A. Any data stores or extracts used to support the delivery for BI purposes","B. Either an Inmon or Kimball approach","C. Data stores and extracts that can be transformed into star schemas","D. All the data in the enterprise","E. An integrated data store, ETL logic, and extensive data cleansing routines"],a:"A"},
+    {n:142,q:"A data lake and a data warehouse are the same concepts in so far as:",o:["A. They are both concerned with using different forms of data governance","B. They are both concerned with producing star schemas and dimensional data models","C. They are both concerned with duplicating all the operational data","D. They are both concerned with preparing data for reporting and analytics","E. They are not related in any way"],a:"D"},
+    {n:164,q:"In order to speed up data warehouse development, the data vault approach focuses on the management of:",o:["A. Each data element in the source systems","B. Unique identifiers of enterprise concepts","C. Current data over historical data","D. Surrogate keys from operational systems","E. Alignment of the data dictionaries"],a:"B"},
+    {n:201,q:"A 'Data Swamp' is a data lake that has become:",o:["A. A data asset that uses machine learning","B. Modeled, managed and muddy","C. Overly cataloged, holding information and data","D. Messy, unclean and inconsistent","E. Suitable for frogs, toads and salamanders"],a:"D"},
+    {n:222,q:"Data Staging areas are populated from source databases using extract functions, transformed and then:",o:["A. Made ready for review by a data modeller, for physical modelling","B. Made ready for metadata repository loading","C. Made ready for metrics calculations and key performance indicators","D. Made ready with advanced profiling and reported into a visualisation tool.","E. Made ready and loaded into the data warehouse"],a:"E"},
+    {n:250,q:"A 'Data Lake' is an environment where a vast amount of data can be:",o:["A. Updated, obfuscated, nullified and cleansed","B. Digested, processed, deleted and visualized","C. Purged, sorted, split and scanned","D. Ingested, shared, assessed and analysed","E. Ingested, screened, obfuscated and purged"],a:"D"},
+    {n:267,q:"The business case for enterprise warehousing is:",o:["A. To align data systems, improve source system management, and to enable an enterprise exploit machine learning techniques","B. To reduce data overload, improve information governance, and enable an enterprise to use its data to make better decisions","C. To increase data distribution, improve information generation, and enable an enterprise to use its data to increase revenue","D. To increase data redundancy, align information glossaries, and enable an enterprise to exploit machine learning techniques","E. To reduce data redundancy, improve information consistency, and enable an enterprise to use its data to make better decisions"],a:"E"},
+    {n:268,q:"One of the principles for the implementation of a data warehouse is:",o:["A. Think and design globally; act and build locally","B. Maintain original designs; adjust requirements to suit implementation","C. Think and design incrementally; act and build globally","D. Focus on project goals over business goals; design internally and outsource build","E. Think and design globally; design internally and outsource build"],a:"A"},
+    {n:281,q:"A design approach for managing the risk of errors in data marts is:",o:["A. Purge the data in the data warehouse and copy back to the data mart","B. Purge the data in the data warehouse and reload from the source systems","C. Purge the data in the data marts and reload from the data warehouse","D. Purge the data in the source system and reload the data warehouse","E. Purge the data generally and reload from the best system"],a:"C"},
+    {n:284,q:"A data warehouse deployment with multiple ETL, storage and querying tools often suffers due to the lack of:",o:["A. Common data types in the source datasets","B. Conflict between software vendors","C. Disk space on the big data platform","D. Integration of the dictionaries to achieve common understanding","E. Quality data modelers"],a:"D"},
+    {n:287,q:"Critical to the incremental development of the data warehouse is:",o:["A. A strong release management process","B. A strong incident management process","C. A strong capacity management process","D. The assurance to include velocity, variety and veracity measurement","E. An agile development team"],a:"E"},
+    {n:293,q:"A data model that consists of a single fact table linked to important concepts of the business is a:",o:["A. Machine Learning Model","B. Process Model","C. Dimensional Model","D. Transition State Model","E. Relational Model"],a:"C"},
+  ]
+},
+
+{
+  id:11, name:"Metadata Management", icon:"🏷️",
+  color:"var(--ch11)",
+  desc:"Metadata types, repositories, lineage, provenance, business glossary & standards",
+  qs:[
+    {n:73,q:"A complexity in documenting data lineage is:",o:["A. Identifying source databases","B. Conflicting application requirements from data owners","C. Different data element names and formats","D. Choosing which content management software to use","E. Establishing data quality metrics"],a:"C"},
+    {n:74,q:"The Family Name of a Person is recorded in a system. The column name is Pname. Pname is an example of:",o:["A. Metadata","B. Data","C. Megadata","D. Normalised data","E. Poor table design"],a:"E"},
+    {n:75,q:"A data lineage tool enables a user to:",o:["A. Visualize how the data gets to the data lake","B. Track the historical changes to a data value","C. Line up the data to support sophisticated glossary management","D. Enables rapid development of dashboard reporting","E. Track the data from source system to a target database; understanding its transformations"],a:"E"},
+    {n:93,q:"Where is the best place to find the following metadata: database table names, column names and indexes?",o:["A. Security access authorisation","B. Enterprise data model","C. Database catalogue","D. Detailed business processes","E. Logical data model -"],a:"C"},
+    {n:94,q:"Descriptive metadata describes a resource, enabling its identification and retrieval.",o:["A. For example, a document has a number of pages, number of chapters and word count","B. For example, a record has version numbers, archive dates and purge dates","C. For example, a book has author, title and subject associated with it","D. For example, a car has a wheel, an engine and a transmission","E. For example, a lump of coal burns about 100 degrees and gives off carbon dioxide"],a:"C"},
+    {n:95,q:"The role of Metadata in Data Management is:",o:["A. To build a big data solution","B. To help organisations understand its data, its systems and its workflows","C. To provide effective decision making","D. To display appropriate data on screens and reports","E. To group common data concepts"],a:"B"},
+    {n:96,q:"Discovering and documenting metadata about physical data assets provides:",o:["A. Scoping boundaries of the data dictionary","B. An estimation of balance sheet value of enterprise data","C. Effective project scope management","D. Insights into the temporal data quality","E. Information on how data is transformed as it moves between systems"],a:"E"},
+    {n:102,q:"The metadata structure for a content management system can be represented with a:",o:["A. Process model","B. Mind map","C. Data model","D. CRUD matrix","E. Authorization matrix"],a:"C"},
+    {n:103,q:"A goal of metadata management is to manage data related business terminology in order to:",o:["A. Ensure accurate data requirements are gathered for reporting","B. Ensure people understand data content and can use data consistently","C. Ensure people understand data definition in BI systems","D. Successfully size the database","E. Ensure the business processes align to the data model"],a:"B"},
+    {n:104,q:"Data provenance and data lineage are examples of:",o:["A. Operational metadata","B. Business metadata","C. Industry metadata","D. Strategic metadata","E. Technical metadata"],a:"A"},
+    {n:105,q:"By setting, enforcing and auditing metadata standards, organizations hope to:",o:["A. Provide activities for the data governance office","B. Simplify integration and enable use","C. Standardize business rules in operational processes","D. Ease of understanding data dictionaries","E. Ensure the appropriate classification or meta-metadata"],a:"B"},
+    {n:106,q:"Well executed metadata management enables:",o:["A. A consistent understanding of data resources","B. A consistent approach to data modelling","C. A consistent design for dimensional reporting","D. A consistent understanding of database design","E. A consistent authorization framework"],a:"A"},
+    {n:115,q:"I assess the quality of the data and then, 2 steps later, I seem to have lost the analysis and do it again. This is mainly a failure of:",o:["A. Document and content management","B. Big data","C. Data warehousing and business intelligence","D. Data quality management","E. Metadata management"],a:"E"},
+    {n:119,q:"The implementation of data architecture exposes the transformation of data as it moves across the landscape. A common name for this concept is:",o:["A. Data modelling","B. Data lineage","C. Extract, transformation and load","D. Data interfacing","E. Data discovery"],a:"B"},
+    {n:123,q:"Critical to the success of the data warehouse is the ability to explain the data. The DMBoK knowledge area that practices these techniques is:",o:["A. Data Storage and Operations","B. Document & Content Management","C. Metadata Management","D. Reference and Master Data","E. Data Architecture"],a:"C"},
+    {n:205,q:"Different types of metadata include:",o:["A. Business, Information, Application and Technology","B. Business, Quality, and Introspective","C. Business, Application and Processing","D. Fluid, static and viscous","E. Business, Technical and Operational"],a:"E"},
+    {n:206,q:"Metadata is often categorized into 3 types, they are:",o:["A. Technical, infrastructure and instance","B. Business, strategic and meta-metadata","C. Operational, reporting and analytical","D. Business, technical and strategic","E. Business, technical and operational"],a:"E"},
+    {n:207,q:"The ISO Metadata Registry Standard that provides a framework for defining a metadata registry is:",o:["A. ISO 9001","B. ISO / IEC 11179","C. ISO MD 1","D. ISO 4-20-99","E. ISO 4590"],a:"B"},
+    {n:215,q:"Who does the DMBoK consider to be generally responsible for developing business glossary content?",o:["A. Business Users","B. Conceptual Data Modellers","C. Business Data Stewards","D. Coordinating Data Stewards","E. Data Architects"],a:"C"},
+    {n:259,q:"What is the purpose of data lineage?",o:["A. Formal Data Quality assessment of a dataset","B. Tracking of historical changes to a dataset","C. Description of a dataset's phase within the data lifecycle","D. List of potential data integration opportunities","E. Collection of all the metadata related to a dataset"],a:"B"},
+    {n:262,q:"A lineage data tool provides:",o:["A. Ancestral origin of data DNA","B. A temporal distortion of data values across systems","C. A clean line between columns in the same entity","D. Scope for reporting requirements","E. The capture and maintenance of source structures for each attribute on the data model"],a:"E"},
+    {n:274,q:"Common understanding of the core business concepts and terminology is the objective of which deliverable?",o:["A. Data Warehouse Architecture","B. Business Glossary","C. Metadata Repositories","D. Security Framework","E. Data Dictionary"],a:"B"},
+    {n:276,q:"Tagging a column as personally identifiable information is an example of:",o:["A. Data Quality","B. Data profiling","C. Data Architecture","D. Metadata","E. Data dictionary"],a:"D"},
+    {n:277,q:"How does metadata prevent the use of out-of-date data?",o:["A. By establishing governance policies on data currency","B. Associating event data, such as: created and updated date, with the data","C. It constructs views over current data","D. By incorporating event data, such as updated data, in the data model","E. It sends alerts to users when data becomes stale"],a:"B"},
+    {n:282,q:"Metadata repositories are not generally used for:",o:["A. Address Data","B. Event messaging tools","C. Service Registries","D. Data dictionaries","E. Data modelling repository"],a:"B"},
+    {n:285,q:"Which is the greatest benefit of Data Lineage and Flow?",o:["A. Remove barriers to value generation","B. Control of data assets","C. Latency Identification","D. Impact Analysis","E. Improve overall value of data"],a:"D"},
+  ]
+},
+
+{
+  id:12, name:"Data Quality", icon:"✅",
+  color:"var(--ch12)",
+  desc:"DQ dimensions, profiling, improvement cycles, rules, metrics & stewardship",
+  qs:[
+    {n:26,q:"A report displaying birth date contains possible, but incorrect values. What is a possible explanation?",o:["A. Birth date is populated from a single source system, which contains missing values","B. Birth date is populated from two source systems, both of which record the birth date in the birth date field","C. Birth date is populated from a single source system, which does not contain birth date","D. Birth date is populated from two source systems, one of which stores marriage date in the birth date field","E. Birth date is populated from a single source system, where the date field is an offset value of 1601"],a:"D"},
+    {n:67,q:"Basic profiling of data involves analysis of:",o:["A. Data sources, data visualisations, data latency and ownership","B. Data lakes, data warehouses and operational data stores","C. Data criteria, data acquisition, data policy and procedures inside data governance","D. Data formats, data values, patterns and relationships","E. Data clusters, data clouds, data repositories and metadata libraries"],a:"D"},
+    {n:71,q:"Which DMBoK knowledge area is most likely responsible for a high percentage of returned mail?",o:["A. Data Integration and Interoperability","B. Metadata Management","C. Reference and Master Data","D. Data Warehousing and Business Intelligence","E. Data Quality"],a:"E"},
+    {n:72,q:"When a data quality team has more issues than they can manage, they should look to:",o:["A. Initiate data quality improvement cycles, focusing on achieving incremental improvements","B. Hire more people","C. Establish a program of quick wins targeting easy fixes over a short time period","D. Delete any issue that is greater than 6 months old","E. Implement data validation rules on data entry systems"],a:"A"},
+    {n:89,q:"Focusing Data Quality Management on 'critical data' has the purpose of prioritising improvement efforts on:",o:["A. Data that is most important","B. Data that is in legacy systems","C. Data that is easy to improve","D. Data that is externally sourced","E. Data that is selected by management"],a:"A"},
+    {n:90,q:"Which of the following is NOT a stage in the Shewhart / Deming Cycle that drives the data quality improvement lifecycle?",o:["A. Do","B. Act","C. Investigate","D. Check","E. Plan"],a:"C"},
+    {n:91,q:"A data quality program should limit its scope to:",o:["A. The data that is of interest to the Chief Executive Officer","B. The data that changes most often","C. The data most critical to the enterprise and its customers","D. The highest profile program with the best benefits","E. All the data stored in the enterprise"],a:"C"},
+    {n:92,q:"Which of the following is NOT required to effectively track data quality incidents?",o:["A. An effective service level agreement with defined rewards and penalties","B. An assignment process to appropriate individuals and teams","C. An operational workflow that ensures effective resolution","D. A standard vocabulary for classifying data quality issues","E. A well defined system of escalation based on the impact, duration, or urgency of an issue"],a:"A"},
+    {n:99,q:"Which of the following is the best example of the data quality dimension of 'consistency'?",o:["A. All the records in the CRM have been accounted for in the data warehouse","B. The source data for the end of month report arrived 1 week late","C. The phone numbers in the customer file do not adhere to the standard format","D. The revenue data in the dataset is always $100 out","E. The customer file has 50% duplicated entries"],a:"A"},
+    {n:107,q:"One advantage of a continuous improvement over a maturity approach in data quality is:",o:["A. A continuous improvement approach can be completed by skilled staff, but a maturity approach requires 3rd parties","B. Continuous improvement is driven by micro-business cases rather than an overall standardised approach","C. A maturity assessment will achieve level 3 at the most and a continuous assessment can achieve level 4","D. A continuous improvement approach is not as measureable as a maturity measure","E. A continuous improvement approach such as metadata management"],a:"B"},
+    {n:108,q:"A pensioner who usually receives a quarterly bill of around $300 was sent a $100,000,000 electricity bill. They were a victim of poor data quality checks in which dimension?",o:["A. Integrity","B. Accuracy","C. Reasonableness","D. Currency","E. Timeliness"],a:"C"},
+    {n:112,q:"The first morning an attribute is approaching an established data quality threshold, the following should take place:",o:["A. Establish a set of activities to address the emerging data quality issue","B. Notify the data owner and advise them to establish a team of experts to investigate","C. Check for erroneous data in the effected reports","D. Consider reviewing the threshold value","E. Press the emergency button situated under your desk"],a:"A"},
+    {n:113,q:"Which of the following is a Data Quality principle?",o:["A. Prevention","B. Governance","C. Criticality","D. Standards Driven","E. All of these"],a:"E"},
+    {n:124,q:"Which of the following is NOT a goal of Data Quality?",o:["A. Define and implement processes to measure, monitor, and report on data quality levels","B. Understand and comply with all relevant regulations and policies for privacy, protection, and confidentiality","C. Define standards, requirements, and specifications for data quality controls as part of the data lifecycle.","D. Identify and advocate for opportunities to improve the quality of data, through process and system improvements","E. Develop a governed approach to make data fit for purpose based on data consumers' requirements"],a:"B"},
+    {n:125,q:"The quality of data will be improved by:",o:["A. Identifying and deleting all the erroneous data in the organisation","B. World's best practice software tools","C. A mindset that helps employees and stakeholders to act while always thinking of the quality of data","D. Establishing a regime of penalties for poor data quality","E. Periodic data quality initiatives that leave the data better than they found it"],a:"C"},
+    {n:126,q:"Which of the following is NOT a stage of the Data Quality Management Cycle?",o:["A. Do","B. Plan","C. Check","D. Intervene","E. Act"],a:"D"},
+    {n:182,q:"Which of the following is the best example of a 'documented data quality rule'?",o:["A. The transaction data from all satellite systems needs to be ready by 12:05 am in order to feed the overnight batching window, to ensure branches have access to actual customer balances","B. All transaction data in the core banking systems need to be processed at 12:05 am each day regardless of the business calendar day and timezone","C. Every transaction recorded must be processed by 12:05 am by authorized personnel who will validate balances and data delivery to branches","D. Each transaction data file holding customer transactions must be kept confidential to the authorized users within the operations team","E. The transaction data from all satellite systems needs to reflect actual customer balances each morning"],a:"A"},
+    {n:190,q:"When reviewing a Data Quality metric approaching its threshold, an experienced Data Quality Manager will:",o:["A. Start a review of the metric to determine what the appropriate threshold should be","B. Start working on the issue to avoid the metric going over the threshold","C. Wait for the issue to reach threshold and then lodge an IT incident report","D. Wait for the issue to reach threshold and then initiate a Data Governance response","E. Discuss with your manager ways to take leave over the next month or so"],a:"B"},
+    {n:191,q:"Which is the most important Data Quality dimension?",o:["A. Completeness","B. Consistency","C. Integrity","D. Timeliness","E. It is impossible to identify the most important Data Quality dimension"],a:"E"},
+    {n:197,q:"A catastrophic system failure due to processing attachments that are too large may be solved by:",o:["A. Changing the network bandwidth to handle infinitely sized attachments","B. Associating attachment size with the attachment and changing the process to check the size is less than the upper limit","C. Increasing the available memory on the database","D. Associating attachment date with the attachment and changing the process to check the date is less than 1 month old","E. Compressing the attachment before sending it in an email"],a:"B"},
+    {n:198,q:"How are Critical Data Elements identified?",o:["A. By determining which data elements are used by the most processes","B. By examining the most significant regulatory reports","C. By executing the Data vs Process intersection analysis in an integrated Process / Data Models repository","D. By following ISO 8000","E. By linking them to the Data Quality business drivers; customer experience, effectiveness, and efficiency"],a:"E"},
+    {n:199,q:"Which of the following is a stage in the Shewhart / Deming Cycle that drives the data quality improvement lifecycle?",o:["A. Do","B. Correct","C. Investigate","D. Rerun","E. Perform"],a:"A"},
+    {n:200,q:"A business driver for the creation of a Data Quality Management program is:",o:["A. Improve time-to-market by reducing system development lifecycle time","B. To increase the probability of industry awards","C. To ensure the data quality team maintains maximum efficiency","D. To reduce risks and costs associated with poor data quality","E. To assist in the consolidation of data warehouses and data lakes"],a:"D"},
+    {n:229,q:"A Data Quality dimension is:",o:["A. The value of a particular piece of data","B. A valid value in a list","C. A core concept in dimensional modeling","D. A measurable feature or characteristic of data","E. One aspect of data quality used extensively in data governance"],a:"D"},
+    {n:263,q:"The purpose of Data Quality Management is to create data that is:",o:["A. Modelled and architected","B. Secure and available","C. Accurate and precise","D. Backed up and recoverable","E. Reliable and trustworthy"],a:"E"},
+    {n:264,q:"Critical Data is most often used in:",o:["A. Regulatory, financial, or management reporting","B. Business operational needs","C. Measuring product quality and customer satisfaction","D. Business strategy, especially efforts at competitive differentiation.","E. All of these"],a:"A"},
+    {n:270,q:"'Top down' and 'bottom up' data analysis and profiling is best done in concert because:",o:["A. It balances business relevance and the actual state of the data","B. It allows the profiler to show the business the true state of the data","C. It gets everyone involved","D. Data quality tools are more productive when they are effectively configured","E. It gives something for the architects to do while the profilers get on with the work"],a:"A"},
+  ]
+},
+
+{
+  id:13, name:"Big Data & Data Science", icon:"🧠",
+  color:"var(--ch13)",
+  desc:"Big data 3Vs/7Vs, analytics types, data mining, machine learning & IoT",
+  qs:[
+    {n:69,q:"Big data is often defined by three characteristics. They are:",o:["A. Volume, Variety and Velocity","B. Expansive, Engaged and Enormous","C. Direction, Depth and Details","D. Size, Speed and Sensitivity","E. Complexity, Compliance and Completeness"],a:"A"},
+    {n:98,q:"An application that attempts to predict future outcomes through probability estimates is called:",o:["A. Just-in-time reporting","B. Dimensional analytics","C. Predictive analytics","D. Descriptive analytics","E. Reactive analytics"],a:"C"},
+    {n:100,q:"Sentiment analysis of call centre voice files is performed by text analysis and stored in a relational database. Which of the following is true?",o:["A. Structured and unstructured data are the same thing","B. They are both structured data","C. They are both unstructured data","D. The voice files are structured data and the sentiment analysis is unstructured data","E. The voice files are unstructured data and the sentiment analysis is structured data"],a:"E"},
+    {n:121,q:"An organisation that parses its call centre audio files to assess the emotional state of its callers is using:",o:["A. Voice recognition techniques","B. Overly invasive monitoring analysis","C. Predictive analytics","D. Reactive analytics","E. Sentiment analysis"],a:"E"},
+    {n:139,q:"The seven Vs of Big Data are:",o:["A. Volume, Vector, Variety, Vocabulary, Viscosity, Volatility, Veracity","B. Volume, Velocity, Variety, Variability, Viscosity, Volatility, Veracity","C. Volume, Vector, Variety, Vocabulary, Viscosity, Voiced, Veracity","D. Volume, Velocity, Variety, Vocabulary, Viscosity, Volatility, Veracity","E. Volume, Vector, Variety, Vocabulary, Viscosity, Vexation, Veracity"],a:"B"},
+    {n:202,q:"Data mining is:",o:["A. Advanced digging into the data to determine the likely causes of data quality failures","B. Picking through the data in the data warehouse looking for 'gems'","C. The classification of raw data as ore which is subsequently subjected to a process of refinement","D. Analysis using 'unsupervised' machine learning techniques without knowledge of the desired outcome","E. The scoping up of data through a rotating artificial intelligence 'scraping' mechanism"],a:"D"},
+    {n:227,q:"Which of the following activities is most likely to maintain bias in data analysis?",o:["A. Re-baselining the data set after each period of analysis to remove assumptions","B. Remove sources of likely bias from data sets before analysis","C. Using more data sets with diverse data sources","D. Working with external stakeholders to assess data quality","E. Using more data sets with same data"],a:"E"},
+    {n:245,q:"A machine, learning algorithm that incorrectly classifies new data values, may have a problem with population imbalances in:",o:["A. Metadata management","B. Reference data management","C. Model training data","D. Predictive analytics","E. Big data architecture"],a:"C"},
+  ]
+},
+
+{
+  id:14, name:"Data Ethics & Privacy", icon:"⚖️",
+  color:"var(--ch14)",
+  desc:"Ethical handling, Belmont principles, GDPR, right to be forgotten & disclosure",
+  qs:[
+    {n:213,q:"What are the Belmont Principles?",o:["A. Respect for Persons, Beneficence, Justice","B. Right to Privacy, Right to Data Access, Right to be Forgotten","C. Data Quality, Data Adequacy, Data Management","D. Human Dignity, Civil Rights, Respect for Privacy","E. Justice, Fairness, Equality"],a:"A"},
+    {n:224,q:"Disclosure (e.g. privacy agreements) is the most common way to manage ethical positions. What is one technique to go beyond disclosure?",o:["A. Working with government to organise protective legislation","B. Work with stakeholders to test how they react to proposed experiences","C. Talking to other organisations that have had poor ethical behaviours exposed","D. Working only with internal people to minimise cost and complexity","E. Working with the media to organise better press releases"],a:"B"},
+    {n:251,q:"The right to be forgotten is:",o:["A. A person's right to have imperfect memory","B. A person's right to have all their information erased from an organisation","C. A person's right for all search criteria not to lead to their details","D. A person's right to have their information removed from all databases on earth","E. A person's right to change their name"],a:"B"},
+    {n:275,q:"A website that does not ask for agreement on intended data use is breaching which principle in the GDPR of the EU?",o:["A. Safeguards","B. Storage Limitations","C. Accuracy","D. Purpose Limitation","E. Accountability"],a:"D"},
+    {n:290,q:"One way of defining ethics is:",o:["A. Doing it wrong, and then expertly covering it up","B. Doing it right when someone is looking","C. Doing it wrong, and failing to covering it up","D. Doing it wrong, and then apologizing","E. Doing it right when no one is looking"],a:"E"},
+    {n:291,q:"Data handling ethics centers on core concepts of:",o:["A. Impact on the organization, impact on people, impact on the economy","B. Economic production across the globe","C. Impact on artificial intelligence, potential for misuse, economic value of data","D. Impact on people, potential for misuse, economic value of data","E. Impact on other organisations, potential for sharing, loss of economic value of data"],a:"D"},
+  ]
+}
+];
+
+// ─── STATE ──────────────────────────────────────────────────────────────────
+
+let quizMode = false;
+let answered = new Set(JSON.parse(localStorage.getItem('cdmp_answered') || '[]'));
+const revealedAnswers = new Set();
+
+// ─── RENDER ─────────────────────────────────────────────────────────────────
+
+function renderStats() {
+  const total = chapters.reduce((a,c) => a + c.qs.length, 0);
+  const ans = answered.size;
+  document.getElementById('statsBar').innerHTML = `
+    <div class="stat-card"><span class="stat-num">${total}</span><span class="stat-label">Total Questions</span></div>
+    <div class="stat-card"><span class="stat-num">${chapters.length}</span><span class="stat-label">DMBOK Chapters</span></div>
+    <div class="stat-card"><span class="stat-num" style="color:var(--green)">${ans}</span><span class="stat-label">Answered</span></div>
+    <div class="stat-card"><span class="stat-num" style="color:var(--yellow)">${total - ans}</span><span class="stat-label">Remaining</span></div>
+  `;
+  document.getElementById('progressFill').style.width = `${(ans/total)*100}%`;
+  document.getElementById('progressCount').textContent = `${ans} / ${total}`;
+}
+
+function renderChapters() {
+  const container = document.getElementById('chaptersContainer');
+  container.innerHTML = '';
+
+  chapters.forEach(ch => {
+    const doneInChapter = ch.qs.filter(q => answered.has(q.n)).length;
+    const div = document.createElement('div');
+    div.className = 'chapter';
+    div.id = `ch-${ch.id}`;
+
+    div.innerHTML = `
+      <div class="chapter-header" onclick="toggleChapter(${ch.id})">
+        <div class="chapter-color-bar" style="background:${ch.color}"></div>
+        <span class="chapter-icon">${ch.icon}</span>
+        <div class="chapter-meta">
+          <h2>Chapter ${ch.id}: ${ch.name}</h2>
+          <div class="chapter-sub">${ch.desc}</div>
+        </div>
+        <span class="chapter-badge">${doneInChapter}/${ch.qs.length} done</span>
+        <span class="chapter-chevron">▶</span>
+      </div>
+      <div class="chapter-body" id="body-${ch.id}">
+        ${ch.qs.map(q => renderQuestion(q, ch.color)).join('')}
+      </div>
+    `;
+    container.appendChild(div);
+  });
+}
+
+function renderQuestion(q, color) {
+  const isDone = answered.has(q.n);
+  return `
+    <div class="question-item ${isDone ? 'answered' : ''}" id="qi-${q.n}" data-q="${q.n}">
+      <div class="q-head">
+        <span class="q-num">Q${q.n}</span>
+        <span class="q-text">${q.q}</span>
+      </div>
+      <div class="q-options">
+        ${q.o.map((opt, i) => {
+          const letter = String.fromCharCode(65+i);
+          return `<div class="q-opt" onclick="handleOption(${q.n},'${letter}','${q.a}',this)">${opt}</div>`;
+        }).join('')}
+      </div>
+      <div class="answer-revealed" id="ar-${q.n}">
+        ✓ Correct Answer: <strong>${q.a}. ${q.o[q.a.charCodeAt(0)-65].substring(3)}</strong>
+      </div>
+      <div class="q-footer">
+        <span class="q-answer-label ${isDone ? 'shown' : ''}" id="al-${q.n}">
+          ${isDone ? '✓ Answered' : 'Not answered'}
+        </span>
+        <button class="q-show-btn" id="sb-${q.n}" onclick="toggleReveal(${q.n},'${q.a}',${JSON.stringify(q.o)})">
+          Show Answer
+        </button>
+      </div>
+    </div>
+  `;
+}
+
+// ─── INTERACTIONS ────────────────────────────────────────────────────────────
+
+function handleOption(num, selected, correct, el) {
+  const item = document.getElementById(`qi-${num}`);
+  // Clear existing
+  item.querySelectorAll('.q-opt').forEach(o => {
+    o.classList.remove('correct','wrong');
+    o.style.pointerEvents = 'none';
+  });
+  // Mark selected
+  if (selected === correct) {
+    el.classList.add('correct');
+  } else {
+    el.classList.add('wrong');
+    // reveal correct
+    item.querySelectorAll('.q-opt').forEach((o, i) => {
+      if (String.fromCharCode(65+i) === correct) o.classList.add('revealed-correct');
+    });
+  }
+  markAnswered(num);
+}
+
+function toggleReveal(num, correct, opts) {
+  const ar = document.getElementById(`ar-${num}`);
+  const sb = document.getElementById(`sb-${num}`);
+  const showing = ar.classList.contains('show');
+  if (showing) {
+    ar.classList.remove('show');
+    sb.classList.remove('active');
+    sb.textContent = 'Show Answer';
+  } else {
+    ar.classList.add('show');
+    sb.classList.add('active');
+    sb.textContent = 'Hide Answer';
+    markAnswered(num);
+    // In quiz mode, also highlight correct option
+    const item = document.getElementById(`qi-${num}`);
+    item.querySelectorAll('.q-opt').forEach((o, i) => {
+      if (String.fromCharCode(65+i) === correct) {
+        o.classList.add('revealed-correct');
+      }
+    });
+  }
+}
+
+function markAnswered(num) {
+  if (!answered.has(num)) {
+    answered.add(num);
+    localStorage.setItem('cdmp_answered', JSON.stringify([...answered]));
+    const item = document.getElementById(`qi-${num}`);
+    if (item) {
+      item.classList.add('answered');
+      item.querySelector('.q-num').style.background = 'var(--green)';
+      item.querySelector('.q-num').style.color = '#0d1117';
+    }
+    const al = document.getElementById(`al-${num}`);
+    if (al) { al.textContent = '✓ Answered'; al.classList.add('shown'); }
+    // Update chapter badge
+    chapters.forEach(ch => {
+      if (ch.qs.find(q => q.n === num)) {
+        const doneInChapter = ch.qs.filter(q => answered.has(q.n)).length;
+        const badge = document.querySelector(`#ch-${ch.id} .chapter-badge`);
+        if (badge) badge.textContent = `${doneInChapter}/${ch.qs.length} done`;
+      }
+    });
+    renderStats();
+  }
+}
+
+function toggleChapter(id) {
+  const el = document.getElementById(`ch-${id}`);
+  el.classList.toggle('open');
+}
+
+function expandAll() {
+  document.querySelectorAll('.chapter').forEach(c => c.classList.add('open'));
+}
+
+function collapseAll() {
+  document.querySelectorAll('.chapter').forEach(c => c.classList.remove('open'));
+}
+
+function toggleQuizMode() {
+  quizMode = !quizMode;
+  const btn = document.getElementById('quizModeBtn');
+  btn.textContent = `Quiz Mode: ${quizMode ? 'ON' : 'OFF'}`;
+  btn.classList.toggle('active', quizMode);
+  // In quiz mode, hide show-answer buttons
+  document.querySelectorAll('.q-show-btn').forEach(b => {
+    b.style.display = quizMode ? 'none' : 'block';
+  });
+}
+
+function resetProgress() {
+  if (!confirm('Reset all progress? This cannot be undone.')) return;
+  answered.clear();
+  localStorage.removeItem('cdmp_answered');
+  revealedAnswers.clear();
+  renderChapters();
+  renderStats();
+}
+
+// ─── SEARCH ─────────────────────────────────────────────────────────────────
+
+function handleSearch(val) {
+  const q = val.trim().toLowerCase();
+  const notice = document.getElementById('searchNotice');
+  let count = 0;
+
+  chapters.forEach(ch => {
+    let chHasResults = false;
+    ch.qs.forEach(question => {
+      const el = document.getElementById(`qi-${question.n}`);
+      if (!el) return;
+      const text = `Q${question.n} ${question.q} ${question.o.join(' ')}`.toLowerCase();
+      const match = !q || text.includes(q);
+      el.classList.toggle('hidden-q', !match);
+      if (match) { count++; chHasResults = true; }
+    });
+    const chEl = document.getElementById(`ch-${ch.id}`);
+    if (q) {
+      chEl.style.display = chHasResults ? '' : 'none';
+      if (chHasResults) chEl.classList.add('open');
+    } else {
+      chEl.style.display = '';
+    }
+  });
+
+  if (q) {
+    notice.classList.add('show');
+    document.getElementById('searchCount').textContent = count;
+    document.getElementById('searchTerm').textContent = val;
+  } else {
+    notice.classList.remove('show');
+    chapters.forEach(ch => {
+      document.getElementById(`ch-${ch.id}`).style.display = '';
+    });
+  }
+}
+
+// ─── INIT ────────────────────────────────────────────────────────────────────
+
+renderChapters();
+renderStats();
+</script>
+</body>
+</html>
